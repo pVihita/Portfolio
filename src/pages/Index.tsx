@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { useTheme } from 'next-themes';
+import { ThemeProvider } from 'next-themes';
 import Navigation from '@/components/portfolio/Navigation';
 import Hero from '@/components/portfolio/Hero';
 import About from '@/components/portfolio/About';
@@ -11,7 +11,7 @@ import Projects from '@/components/portfolio/Projects';
 import Contact from '@/components/portfolio/Contact';
 import ParticleBackground from '@/components/portfolio/ParticleBackground';
 
-const Index = () => {
+const Portfolio = () => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -27,15 +27,28 @@ const Index = () => {
       <ParticleBackground />
       <Navigation />
       
-      <main className="relative z-10">
+      <motion.main 
+        className="relative z-10"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
         <Hero />
         <About />
         <Skills />
         <Achievements />
         <Projects />
         <Contact />
-      </main>
+      </motion.main>
     </div>
+  );
+};
+
+const Index = () => {
+  return (
+    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+      <Portfolio />
+    </ThemeProvider>
   );
 };
 

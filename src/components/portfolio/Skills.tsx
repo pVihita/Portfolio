@@ -1,12 +1,23 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { useEffect } from 'react';
 
 const Skills = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
+
+  useEffect(() => {
+    // Add DevIcons CDN to head if not already present
+    if (!document.querySelector('link[href*="devicon"]')) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css';
+      document.head.appendChild(link);
+    }
+  }, []);
 
   const skills = [
     { name: 'HTML', icon: 'devicon-html5-plain colored' },
@@ -40,19 +51,41 @@ const Skills = () => {
           {skills.map((skill, index) => (
             <motion.div
               key={skill.name}
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={inView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group"
+              initial={{ opacity: 0, scale: 0.5, rotateY: 180 }}
+              animate={inView ? { opacity: 1, scale: 1, rotateY: 0 } : {}}
+              transition={{ 
+                duration: 0.6, 
+                delay: index * 0.1,
+                type: "spring",
+                stiffness: 100
+              }}
+              whileHover={{ 
+                scale: 1.1, 
+                rotateY: 10,
+                transition: { duration: 0.2 }
+              }}
+              className="group perspective-1000"
             >
-              <div className="relative bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border border-purple-100 dark:border-purple-800">
+              <div className="relative bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border border-purple-100 dark:border-purple-800 transform-gpu">
                 <div className="text-center">
-                  <i className={`${skill.icon} text-5xl mb-4 group-hover:scale-110 transition-transform duration-300`} />
+                  <motion.i 
+                    className={`${skill.icon} text-5xl mb-4 block`}
+                    whileHover={{ 
+                      scale: 1.2,
+                      rotate: [0, -10, 10, -10, 0],
+                      transition: { duration: 0.5 }
+                    }}
+                  />
                   <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
                     {skill.name}
                   </h3>
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <motion.div 
+                  className="absolute inset-0 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  initial={false}
+                  animate={{ opacity: 0 }}
+                  whileHover={{ opacity: 1 }}
+                />
               </div>
             </motion.div>
           ))}

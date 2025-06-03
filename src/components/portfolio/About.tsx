@@ -1,7 +1,7 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { GraduationCap, Code, Gamepad2 } from 'lucide-react';
+import { GraduationCap, Code } from 'lucide-react';
 
 const About = () => {
   const [ref, inView] = useInView({
@@ -87,8 +87,7 @@ const About = () => {
               I've built multiple interactive web projects using <strong className="text-purple-400">HTML</strong>, 
               <strong className="text-purple-400"> CSS</strong>, <strong className="text-purple-400">Bootstrap</strong>, 
               <strong className="text-purple-400"> JavaScript</strong>, and <strong className="text-purple-400">Firebase</strong>. 
-              I'm also part of the <strong className="text-purple-400">ASU Valorant eSports team</strong>, combining my love 
-              for gaming with teamwork and strategy.
+              I'm passionate about creating exceptional digital experiences and aspire to join the competitive gaming scene.
             </motion.p>
 
             <motion.p
@@ -101,12 +100,11 @@ const About = () => {
 
             <motion.div
               variants={itemVariants}
-              className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8"
+              className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8"
             >
               {[
                 { icon: GraduationCap, title: "ASU Student", desc: "Astronomical Sciences" },
                 { icon: Code, title: "Web Developer", desc: "Full-Stack Focus" },
-                { icon: Gamepad2, title: "eSports Player", desc: "Valorant Team" },
               ].map((item, index) => (
                 <motion.div
                   key={index}

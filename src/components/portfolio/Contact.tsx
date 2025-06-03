@@ -6,6 +6,7 @@ import { Github, Linkedin, Mail, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
   const [ref, inView] = useInView({
@@ -19,10 +20,35 @@ const Contact = () => {
     message: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      await emailjs.send(
+        'service_b8wcxgn',
+        'template_3y8l8dn',
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+          to_name: 'Romil Patel'
+        },
+        'b-uNk6s2WC-8hJ1WN'
+      );
+      
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error) {
+      console.error('EmailJS error:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -82,8 +108,31 @@ const Contact = () => {
             <div className="bg-white/10 dark:bg-gray-800/50 backdrop-blur-lg rounded-2xl p-8 border border-purple-500/20">
               <h3 className="text-2xl font-bold text-white mb-6">Send a Message</h3>
               
+              {submitStatus === 'success' && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-green-500/20 border border-green-500/50 rounded-lg p-4 mb-6"
+                >
+                  <p className="text-green-300">Message sent successfully! I'll get back to you soon.</p>
+                </motion.div>
+              )}
+
+              {submitStatus === 'error' && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-red-500/20 border border-red-500/50 rounded-lg p-4 mb-6"
+                >
+                  <p className="text-red-300">Failed to send message. Please try again or contact me directly.</p>
+                </motion.div>
+              )}
+              
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
+                <motion.div
+                  whileFocus={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
+                >
                   <Input
                     type="text"
                     name="name"
@@ -93,9 +142,12 @@ const Contact = () => {
                     required
                     className="bg-white/10 border-purple-500/30 text-white placeholder:text-gray-400 focus:border-purple-400"
                   />
-                </div>
+                </motion.div>
                 
-                <div>
+                <motion.div
+                  whileFocus={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
+                >
                   <Input
                     type="email"
                     name="email"
@@ -105,9 +157,12 @@ const Contact = () => {
                     required
                     className="bg-white/10 border-purple-500/30 text-white placeholder:text-gray-400 focus:border-purple-400"
                   />
-                </div>
+                </motion.div>
                 
-                <div>
+                <motion.div
+                  whileFocus={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
+                >
                   <Textarea
                     name="message"
                     placeholder="Your Message"
@@ -117,15 +172,31 @@ const Contact = () => {
                     rows={5}
                     className="bg-white/10 border-purple-500/30 text-white placeholder:text-gray-400 focus:border-purple-400"
                   />
-                </div>
+                </motion.div>
                 
-                <Button
-                  type="submit"
-                  className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105"
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <Send className="h-5 w-5 mr-2" />
-                  Send Message
-                </Button>
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white py-3 rounded-lg font-semibold transition-all duration-300"
+                  >
+                    {isSubmitting ? (
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                        className="h-5 w-5 border-2 border-white border-t-transparent rounded-full"
+                      />
+                    ) : (
+                      <>
+                        <Send className="h-5 w-5 mr-2" />
+                        Send Message
+                      </>
+                    )}
+                  </Button>
+                </motion.div>
               </form>
             </div>
           </motion.div>
@@ -150,11 +221,15 @@ const Contact = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={inView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
+                    whileHover={{ scale: 1.05, x: 10 }}
                     className={`flex items-center gap-4 text-white ${social.color} transition-all duration-300 group`}
                   >
-                    <div className="bg-gradient-to-r from-purple-600 to-pink-600 p-3 rounded-full group-hover:scale-110 transition-transform duration-300">
+                    <motion.div 
+                      className="bg-gradient-to-r from-purple-600 to-pink-600 p-3 rounded-full transition-transform duration-300"
+                      whileHover={{ rotate: 360, scale: 1.1 }}
+                    >
                       <social.icon className="h-6 w-6" />
-                    </div>
+                    </motion.div>
                     <span className="text-lg font-medium">{social.label}</span>
                   </motion.a>
                 ))}
@@ -162,9 +237,14 @@ const Contact = () => {
             </div>
 
             <div className="text-center">
-              <p className="text-gray-300 text-lg">
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={inView ? { opacity: 1 } : {}}
+                transition={{ delay: 1 }}
+                className="text-gray-300 text-lg"
+              >
                 Let's build something amazing together!
-              </p>
+              </motion.p>
             </div>
           </motion.div>
         </div>
