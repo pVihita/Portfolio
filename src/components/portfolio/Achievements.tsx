@@ -43,8 +43,48 @@ const Achievements = () => {
   ];
 
   return (
-    <section id="achievements" className="py-20 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 dark:from-black dark:via-purple-950 dark:to-black">
-      <div className="container mx-auto px-6">
+    <section id="achievements" className="py-20 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 dark:from-black dark:via-purple-950 dark:to-black relative overflow-hidden">
+      {/* Animated Achievement Background SVG */}
+      <div className="absolute inset-0 opacity-10">
+        <svg width="100%" height="100%" viewBox="0 0 1200 800" className="absolute">
+          <defs>
+            <linearGradient id="achieveGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#FFD700" />
+              <stop offset="50%" stopColor="#FFA500" />
+              <stop offset="100%" stopColor="#FF6347" />
+            </linearGradient>
+          </defs>
+          
+          {/* Trophy and Star Animations */}
+          {[...Array(12)].map((_, i) => (
+            <motion.g key={i}>
+              <motion.polygon
+                points="0,-20 6,-8 20,-8 10,0 16,12 0,6 -16,12 -10,0 -20,-8 -6,-8"
+                fill="url(#achieveGrad)"
+                initial={{ 
+                  x: Math.random() * 1200, 
+                  y: Math.random() * 800,
+                  scale: 0,
+                  rotate: 0
+                }}
+                animate={{
+                  scale: [0, 1, 0.7, 1, 0],
+                  rotate: [0, 360, 180, 360, 0],
+                  y: Math.random() * 800,
+                }}
+                transition={{
+                  duration: Math.random() * 6 + 4,
+                  repeat: Infinity,
+                  delay: Math.random() * 3,
+                  ease: "easeInOut"
+                }}
+              />
+            </motion.g>
+          ))}
+        </svg>
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 50 }}
@@ -53,7 +93,7 @@ const Achievements = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-4">
-            Achievements
+            Achievements & Certifications
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-purple-400 to-pink-400 mx-auto rounded-full" />
         </motion.div>
@@ -62,40 +102,171 @@ const Achievements = () => {
           {achievements.map((achievement, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 50 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group"
+              initial={{ opacity: 0, y: 100, rotateX: 90 }}
+              animate={inView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
+              transition={{ 
+                duration: 0.8, 
+                delay: index * 0.15,
+                type: "spring",
+                stiffness: 100
+              }}
+              whileHover={{ 
+                scale: 1.03, 
+                rotateY: 5,
+                transition: { duration: 0.3 }
+              }}
+              className="group perspective-1000"
             >
-              <div className="bg-white/10 dark:bg-gray-800/50 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/20 hover:border-purple-400/50 transition-all duration-300 transform hover:scale-105 h-full">
-                <div className="text-center mb-4">
-                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-purple-300 transition-colors">
-                    {achievement.title}
-                  </h3>
-                  <p className="text-gray-300 leading-relaxed mb-6">
-                    {achievement.description}
-                  </p>
-                </div>
-                
-                <div className="flex justify-center mb-4">
-                  <img 
-                    src={achievement.image} 
-                    alt="Achievement Badge" 
-                    className="w-24 h-24 object-contain group-hover:scale-110 transition-transform duration-300"
-                  />
+              <div className="relative bg-white/10 dark:bg-gray-800/50 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/20 hover:border-purple-400/50 transition-all duration-300 h-full overflow-hidden">
+                {/* Animated SVG Background Pattern */}
+                <div className="absolute inset-0 opacity-20">
+                  <svg width="100%" height="100%" viewBox="0 0 300 400">
+                    <defs>
+                      <radialGradient id={`bgPattern${index}`} cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0.3" />
+                        <stop offset="100%" stopColor="#EC4899" stopOpacity="0.1" />
+                      </radialGradient>
+                    </defs>
+                    <motion.circle
+                      cx="150"
+                      cy="200"
+                      r="80"
+                      fill={`url(#bgPattern${index})`}
+                      initial={{ scale: 0, rotate: 0 }}
+                      animate={inView ? { 
+                        scale: [0, 1.2, 1], 
+                        rotate: [0, 180, 360] 
+                      } : {}}
+                      transition={{ 
+                        duration: 2, 
+                        delay: index * 0.2,
+                        ease: "easeOut"
+                      }}
+                    />
+                    {/* Orbiting Elements */}
+                    {[...Array(3)].map((_, orbIndex) => (
+                      <motion.circle
+                        key={orbIndex}
+                        r="4"
+                        fill="#8B5CF6"
+                        initial={{ 
+                          cx: 150, 
+                          cy: 200 
+                        }}
+                        animate={{
+                          cx: 150 + Math.cos((orbIndex * 120) * (Math.PI / 180)) * 60,
+                          cy: 200 + Math.sin((orbIndex * 120) * (Math.PI / 180)) * 60,
+                        }}
+                        transition={{
+                          duration: 4,
+                          repeat: Infinity,
+                          ease: "linear",
+                          delay: index * 0.1 + orbIndex * 0.3
+                        }}
+                      />
+                    ))}
+                  </svg>
                 </div>
 
-                <div className="text-center">
-                  <a
-                    href={achievement.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105"
-                  >
-                    View Certificate
-                    <ExternalLink className="h-4 w-4" />
-                  </a>
+                <div className="relative z-10">
+                  <div className="text-center mb-4">
+                    <motion.h3
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={inView ? { opacity: 1, y: 0 } : {}}
+                      transition={{ delay: index * 0.15 + 0.3 }}
+                      className="text-xl font-bold text-white mb-3 group-hover:text-purple-300 transition-colors"
+                    >
+                      {achievement.title}
+                    </motion.h3>
+                    <motion.p
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={inView ? { opacity: 1, y: 0 } : {}}
+                      transition={{ delay: index * 0.15 + 0.4 }}
+                      className="text-gray-300 leading-relaxed mb-6"
+                    >
+                      {achievement.description}
+                    </motion.p>
+                  </div>
+                  
+                  <div className="flex justify-center mb-6">
+                    <motion.div
+                      initial={{ scale: 0, rotate: 180 }}
+                      animate={inView ? { scale: 1, rotate: 0 } : {}}
+                      transition={{ 
+                        duration: 0.6, 
+                        delay: index * 0.15 + 0.5,
+                        type: "spring",
+                        stiffness: 200
+                      }}
+                      whileHover={{ 
+                        scale: 1.1, 
+                        rotate: [0, -5, 5, 0],
+                        transition: { duration: 0.5 }
+                      }}
+                      className="relative"
+                    >
+                      <img 
+                        src={achievement.image} 
+                        alt="Achievement Badge" 
+                        className="w-24 h-24 object-contain"
+                      />
+                      {/* Glow Effect */}
+                      <motion.div
+                        animate={{
+                          boxShadow: [
+                            "0 0 20px rgba(139, 92, 246, 0.5)",
+                            "0 0 40px rgba(236, 72, 153, 0.7)",
+                            "0 0 20px rgba(139, 92, 246, 0.5)"
+                          ]
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                        className="absolute inset-0 rounded-full"
+                      />
+                    </motion.div>
+                  </div>
+
+                  <div className="text-center">
+                    <motion.a
+                      href={achievement.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={inView ? { opacity: 1, scale: 1 } : {}}
+                      transition={{ delay: index * 0.15 + 0.6 }}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 group"
+                    >
+                      View Certificate
+                      <motion.div
+                        animate={{ x: [0, 3, 0] }}
+                        transition={{ 
+                          duration: 1.5, 
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      >
+                        <ExternalLink className="h-4 w-4" />
+                      </motion.div>
+                    </motion.a>
+                  </div>
                 </div>
+
+                {/* Corner Decorations */}
+                <motion.div
+                  initial={{ scale: 0, rotate: 0 }}
+                  animate={inView ? { scale: 1, rotate: 360 } : {}}
+                  transition={{ delay: index * 0.15 + 0.8, duration: 1 }}
+                  className="absolute top-4 right-4 w-6 h-6"
+                >
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="text-purple-400">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                  </svg>
+                </motion.div>
               </div>
             </motion.div>
           ))}

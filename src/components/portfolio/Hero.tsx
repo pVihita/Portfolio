@@ -28,84 +28,195 @@ const Hero = () => {
 
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Animated SVG Background */}
-      <div className="absolute inset-0 overflow-hidden">
+      {/* High-Tech Web Developer SVG Animation */}
+      <div className="absolute inset-0 flex items-center justify-center">
         <svg
-          className="absolute w-full h-full"
-          viewBox="0 0 1000 1000"
+          width="800"
+          height="600"
+          viewBox="0 0 800 600"
+          className="opacity-20"
           xmlns="http://www.w3.org/2000/svg"
         >
           <defs>
-            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" style={{ stopColor: '#8B5CF6', stopOpacity: 0.3 }} />
-              <stop offset="100%" style={{ stopColor: '#EC4899', stopOpacity: 0.3 }} />
+            <linearGradient id="techGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0.8" />
+              <stop offset="50%" stopColor="#EC4899" stopOpacity="0.6" />
+              <stop offset="100%" stopColor="#06B6D4" stopOpacity="0.8" />
             </linearGradient>
+            <linearGradient id="codeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#10B981" stopOpacity="0.8" />
+              <stop offset="100%" stopColor="#3B82F6" stopOpacity="0.8" />
+            </linearGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+              <feMerge> 
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
           </defs>
           
-          {/* Floating geometric shapes */}
-          <motion.circle
-            cx="200"
-            cy="200"
-            r="3"
-            fill="url(#grad1)"
-            animate={{
-              cx: [200, 250, 200],
-              cy: [200, 150, 200],
-              scale: [1, 1.5, 1],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-          
-          <motion.polygon
-            points="800,100 850,150 800,200 750,150"
-            fill="url(#grad1)"
-            animate={{
-              rotate: [0, 360],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 6,
-              repeat: Infinity,
-              ease: "linear"
-            }}
-          />
-          
-          <motion.rect
-            x="100"
-            y="600"
-            width="40"
-            height="40"
-            fill="url(#grad1)"
-            animate={{
-              rotate: [0, 45, 0],
-              x: [100, 150, 100],
-            }}
-            transition={{
-              duration: 5,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-          
-          <motion.circle
-            cx="700"
-            cy="700"
-            r="5"
-            fill="#EC4899"
-            animate={{
-              cy: [700, 650, 700],
-              opacity: [0.3, 0.8, 0.3],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
+          {/* Animated Monitor/Computer */}
+          <motion.g
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
+          >
+            {/* Monitor Base */}
+            <rect x="320" y="450" width="160" height="20" rx="10" fill="url(#techGrad1)" />
+            <rect x="380" y="420" width="40" height="50" rx="5" fill="url(#techGrad1)" />
+            
+            {/* Monitor Screen */}
+            <rect x="280" y="250" width="240" height="180" rx="15" fill="#1a1a2e" stroke="url(#techGrad1)" strokeWidth="3" />
+            <rect x="290" y="260" width="220" height="160" rx="8" fill="#16213e" />
+            
+            {/* Code Lines Animation */}
+            <motion.g>
+              {[0, 1, 2, 3, 4, 5].map((i) => (
+                <motion.rect
+                  key={i}
+                  x="300"
+                  y={280 + i * 20}
+                  width={120 + Math.random() * 80}
+                  height="3"
+                  rx="2"
+                  fill="url(#codeGrad)"
+                  initial={{ width: 0, opacity: 0 }}
+                  animate={{ width: 120 + Math.random() * 80, opacity: 1 }}
+                  transition={{ 
+                    delay: i * 0.2 + 1,
+                    duration: 0.8,
+                    repeat: Infinity,
+                    repeatDelay: 4,
+                    repeatType: "reverse"
+                  }}
+                />
+              ))}
+            </motion.g>
+          </motion.g>
+
+          {/* Floating Code Symbols */}
+          <motion.g filter="url(#glow)">
+            {/* HTML Brackets */}
+            <motion.text
+              x="150"
+              y="200"
+              fontSize="24"
+              fill="#E34F26"
+              fontFamily="monospace"
+              animate={{
+                y: [200, 180, 200],
+                rotate: [0, 5, 0],
+                scale: [1, 1.1, 1]
+              }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            >
+              &lt;/&gt;
+            </motion.text>
+            
+            {/* CSS Curly Braces */}
+            <motion.text
+              x="600"
+              y="180"
+              fontSize="28"
+              fill="#1572B6"
+              fontFamily="monospace"
+              animate={{
+                y: [180, 160, 180],
+                rotate: [0, -5, 0],
+                scale: [1, 1.2, 1]
+              }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+            >
+              {'{}'}
+            </motion.text>
+            
+            {/* JavaScript Function */}
+            <motion.text
+              x="120"
+              y="400"
+              fontSize="20"
+              fill="#F7DF1E"
+              fontFamily="monospace"
+              animate={{
+                x: [120, 140, 120],
+                opacity: [0.7, 1, 0.7]
+              }}
+              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            >
+              function()
+            </motion.text>
+            
+            {/* React Brackets */}
+            <motion.text
+              x="580"
+              y="420"
+              fontSize="22"
+              fill="#61DAFB"
+              fontFamily="monospace"
+              animate={{
+                rotate: [0, 360],
+                scale: [1, 1.3, 1]
+              }}
+              transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+            >
+              ⚛
+            </motion.text>
+          </motion.g>
+
+          {/* Animated Circuit Lines */}
+          <motion.g stroke="url(#techGrad1)" strokeWidth="2" fill="none" opacity="0.6">
+            <motion.path
+              d="M 100 300 Q 200 280 300 300 T 500 300"
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <motion.path
+              d="M 700 250 Q 600 230 500 250 T 300 250"
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            />
+            
+            {/* Animated Dots on Circuit */}
+            <motion.circle
+              r="4"
+              fill="#8B5CF6"
+              filter="url(#glow)"
+            >
+              <motion.animateMotion
+                dur="4s"
+                repeatCount="indefinite"
+                path="M 100 300 Q 200 280 300 300 T 500 300"
+              />
+            </motion.circle>
+          </motion.g>
+
+          {/* Data Flow Particles */}
+          {[...Array(20)].map((_, i) => (
+            <motion.circle
+              key={i}
+              r="2"
+              fill={i % 3 === 0 ? "#8B5CF6" : i % 3 === 1 ? "#EC4899" : "#06B6D4"}
+              initial={{ 
+                x: Math.random() * 800, 
+                y: Math.random() * 600,
+                opacity: 0 
+              }}
+              animate={{
+                x: Math.random() * 800,
+                y: Math.random() * 600,
+                opacity: [0, 1, 0]
+              }}
+              transition={{
+                duration: Math.random() * 4 + 2,
+                repeat: Infinity,
+                delay: Math.random() * 2,
+                ease: "easeInOut"
+              }}
+            />
+          ))}
         </svg>
       </div>
 

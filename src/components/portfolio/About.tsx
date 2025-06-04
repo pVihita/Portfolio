@@ -1,122 +1,273 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { GraduationCap, Code } from 'lucide-react';
 
 const About = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.1,
+    threshold: 0.2,
   });
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3,
-        duration: 0.6,
-      },
+  const experiences = [
+    {
+      title: "🎓 Computer Science Student",
+      company: "Arizona State University",
+      description: "Pursuing my Bachelor's degree in Computer Science with a focus on web development and software engineering."
     },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: 'easeOut' },
+    {
+      title: "💻 Frontend Developer",
+      company: "Self-Employed & Projects",
+      description: "Building responsive web applications using React, TypeScript, and modern web technologies."
     },
-  };
+    {
+      title: "🏆 Certified Developer",
+      company: "Global Career Accelerator",
+      description: "Completed comprehensive training in HTML, CSS, JavaScript, and responsive design principles."
+    }
+  ];
 
   return (
-    <section id="about" className="py-20 bg-black/20 backdrop-blur-sm">
-      <div className="container mx-auto px-6">
+    <section id="about" className="py-20 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 dark:from-black dark:via-purple-950 dark:to-black relative overflow-hidden">
+      {/* Animated Background SVG */}
+      <div className="absolute inset-0 opacity-10">
+        <svg width="100%" height="100%" viewBox="0 0 1200 800" className="absolute">
+          <defs>
+            <linearGradient id="aboutGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#8B5CF6" />
+              <stop offset="50%" stopColor="#EC4899" />
+              <stop offset="100%" stopColor="#06B6D4" />
+            </linearGradient>
+          </defs>
+          
+          {/* Neural Network Animation */}
+          <motion.g stroke="url(#aboutGrad)" strokeWidth="1" fill="none">
+            {/* Network Nodes */}
+            {[...Array(20)].map((_, i) => (
+              <motion.circle
+                key={i}
+                cx={100 + (i % 5) * 200}
+                cy={100 + Math.floor(i / 5) * 150}
+                r="4"
+                fill="url(#aboutGrad)"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ 
+                  scale: [0, 1.5, 1], 
+                  opacity: [0, 1, 0.7] 
+                }}
+                transition={{
+                  duration: 2,
+                  delay: i * 0.1,
+                  repeat: Infinity,
+                  repeatDelay: 4
+                }}
+              />
+            ))}
+            
+            {/* Connecting Lines */}
+            {[...Array(15)].map((_, i) => (
+              <motion.line
+                key={i}
+                x1={100 + (i % 4) * 200}
+                y1={100 + Math.floor(i / 4) * 150}
+                x2={300 + (i % 3) * 200}
+                y2={250 + Math.floor(i / 3) * 150}
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 0.5 }}
+                transition={{
+                  duration: 1.5,
+                  delay: i * 0.2,
+                  repeat: Infinity,
+                  repeatDelay: 3
+                }}
+              />
+            ))}
+          </motion.g>
+        </svg>
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10">
         <motion.div
           ref={ref}
-          variants={containerVariants}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
+          initial={{ opacity: 0, y: 50 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <motion.h2
-            variants={itemVariants}
-            className="text-5xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-6"
-          >
+          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-4">
             About Me
-          </motion.h2>
-          <motion.div
-            variants={itemVariants}
-            className="w-24 h-1 bg-gradient-to-r from-purple-400 to-pink-400 mx-auto rounded-full"
-          />
+          </h2>
+          <div className="w-24 h-1 bg-gradient-to-r from-purple-400 to-pink-400 mx-auto rounded-full" />
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+          {/* Left Column - Text Content */}
           <motion.div
-            variants={itemVariants}
-            className="space-y-6"
-          >
-            <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl blur-lg opacity-75 group-hover:opacity-100 transition-opacity" />
-              <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
-                alt="Romil Patel"
-                className="relative w-80 h-80 object-cover rounded-2xl mx-auto shadow-2xl"
-              />
-            </div>
-          </motion.div>
-
-          <motion.div
-            variants={containerVariants}
+            initial={{ opacity: 0, x: -50 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.2 }}
             className="space-y-6"
           >
             <motion.p
-              variants={itemVariants}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.4 }}
               className="text-lg text-gray-300 leading-relaxed"
             >
-              I'm Romil Patel, a first-year student at <strong className="text-purple-400">Arizona State University</strong>, 
-              majoring in <strong className="text-purple-400">Astronomical and Planetary Sciences</strong>. While my academic 
-              journey is rooted in space and science, I've developed a strong passion for <strong className="text-purple-400">web development</strong> through 
-              the <strong className="text-purple-400">Global Career Accelerator (GCA)</strong> program.
+              Hello! I'm <span className="text-purple-400 font-semibold">Romil Patel</span>, 
+              a passionate Computer Science student at Arizona State University with a deep love for 
+              creating innovative web experiences. My journey in technology started with curiosity 
+              and has evolved into a dedication to crafting clean, efficient, and user-friendly applications.
             </motion.p>
-
+            
             <motion.p
-              variants={itemVariants}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.6 }}
               className="text-lg text-gray-300 leading-relaxed"
             >
-              I've built multiple interactive web projects using <strong className="text-purple-400">HTML</strong>, 
-              <strong className="text-purple-400"> CSS</strong>, <strong className="text-purple-400">Bootstrap</strong>, 
-              <strong className="text-purple-400"> JavaScript</strong>, and <strong className="text-purple-400">Firebase</strong>. 
-              I'm passionate about creating exceptional digital experiences and aspire to join the competitive gaming scene.
+              I specialize in <span className="text-pink-400 font-semibold">frontend development</span> 
+              with expertise in React, TypeScript, and modern web technologies. I'm constantly learning 
+              and staying up-to-date with the latest industry trends and best practices.
             </motion.p>
-
+            
             <motion.p
-              variants={itemVariants}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.8 }}
               className="text-lg text-gray-300 leading-relaxed"
             >
-              I recently earned a GCA certification badge for completing training in HTML, CSS, and Bootstrap — 
-              a recognition of my growth and dedication in web development.
+              When I'm not coding, you can find me exploring new technologies, contributing to open-source 
+              projects, or working on personal projects that challenge my skills and creativity.
             </motion.p>
 
+            {/* Animated Stats */}
             <motion.div
-              variants={itemVariants}
-              className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8"
+              initial={{ opacity: 0, y: 30 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 1 }}
+              className="grid grid-cols-2 gap-6 mt-8"
             >
               {[
-                { icon: GraduationCap, title: "ASU Student", desc: "Astronomical Sciences" },
-                { icon: Code, title: "Web Developer", desc: "Full-Stack Focus" },
-              ].map((item, index) => (
+                { number: "15+", label: "Projects Completed" },
+                { number: "5+", label: "Technologies Mastered" }
+              ].map((stat, index) => (
                 <motion.div
                   key={index}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  className="bg-gradient-to-br from-purple-900/50 to-pink-900/50 p-6 rounded-xl border border-purple-500/20 backdrop-blur-sm"
+                  initial={{ scale: 0 }}
+                  animate={inView ? { scale: 1 } : {}}
+                  transition={{ duration: 0.5, delay: 1.2 + index * 0.1 }}
+                  className="text-center bg-white/10 backdrop-blur-lg rounded-lg p-4 border border-purple-500/20"
                 >
-                  <item.icon className="h-8 w-8 text-purple-400 mb-3" />
-                  <h3 className="font-semibold text-white mb-1">{item.title}</h3>
-                  <p className="text-gray-400 text-sm">{item.desc}</p>
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={inView ? { scale: 1 } : {}}
+                    transition={{ duration: 0.8, delay: 1.4 + index * 0.1 }}
+                    className="text-2xl font-bold text-purple-400 mb-1"
+                  >
+                    {stat.number}
+                  </motion.div>
+                  <div className="text-sm text-gray-300">{stat.label}</div>
                 </motion.div>
               ))}
             </motion.div>
+          </motion.div>
+
+          {/* Right Column - Experience Cards with SVG */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="space-y-6"
+          >
+            {experiences.map((exp, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.8, rotateY: 90 }}
+                animate={inView ? { opacity: 1, scale: 1, rotateY: 0 } : {}}
+                transition={{ 
+                  duration: 0.6, 
+                  delay: 0.6 + index * 0.2,
+                  type: "spring",
+                  stiffness: 100
+                }}
+                whileHover={{ scale: 1.02, rotateY: 5 }}
+                className="relative group"
+              >
+                {/* SVG Background Pattern */}
+                <div className="absolute inset-0 opacity-20">
+                  <svg width="100%" height="100%" viewBox="0 0 300 150">
+                    <defs>
+                      <linearGradient id={`expGrad${index}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#8B5CF6" />
+                        <stop offset="100%" stopColor="#EC4899" />
+                      </linearGradient>
+                    </defs>
+                    <motion.path
+                      d="M0,75 Q75,25 150,75 T300,75"
+                      stroke={`url(#expGrad${index})`}
+                      strokeWidth="2"
+                      fill="none"
+                      initial={{ pathLength: 0 }}
+                      animate={inView ? { pathLength: 1 } : {}}
+                      transition={{ duration: 2, delay: 1 + index * 0.3 }}
+                    />
+                    {/* Animated Dots */}
+                    <motion.circle r="3" fill={`url(#expGrad${index})`}>
+                      <motion.animateMotion
+                        dur="4s"
+                        repeatCount="indefinite"
+                        begin={`${index * 0.5}s`}
+                        path="M0,75 Q75,25 150,75 T300,75"
+                      />
+                    </motion.circle>
+                  </svg>
+                </div>
+
+                <div className="relative bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/20 hover:border-purple-400/50 transition-all duration-300">
+                  <motion.h3
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={inView ? { opacity: 1, x: 0 } : {}}
+                    transition={{ delay: 0.8 + index * 0.2 }}
+                    className="text-xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors"
+                  >
+                    {exp.title}
+                  </motion.h3>
+                  <motion.p
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={inView ? { opacity: 1, x: 0 } : {}}
+                    transition={{ delay: 0.9 + index * 0.2 }}
+                    className="text-purple-400 font-semibold mb-3"
+                  >
+                    {exp.company}
+                  </motion.p>
+                  <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ delay: 1 + index * 0.2 }}
+                    className="text-gray-300 leading-relaxed"
+                  >
+                    {exp.description}
+                  </motion.p>
+
+                  {/* Floating Icon Animation */}
+                  <motion.div
+                    animate={{ 
+                      y: [0, -5, 0],
+                      rotate: [0, 5, 0]
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: index * 0.5
+                    }}
+                    className="absolute top-4 right-4 text-2xl opacity-70"
+                  >
+                    {exp.title.charAt(0)}
+                  </motion.div>
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </div>
