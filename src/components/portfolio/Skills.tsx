@@ -33,8 +33,8 @@ const Skills = () => {
 
   return (
     <section id="skills" className="py-20 bg-gradient-to-br from-slate-50 to-purple-50 dark:from-gray-900 dark:to-purple-950 relative overflow-hidden">
-      {/* Enhanced Background Animation */}
-      <div className="absolute inset-0 opacity-15">
+      {/* Enhanced 3D Background Animation */}
+      <div className="absolute inset-0 opacity-20">
         <svg width="100%" height="100%" viewBox="0 0 1400 900" className="absolute">
           <defs>
             <linearGradient id="skillsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -51,48 +51,125 @@ const Skills = () => {
             </filter>
           </defs>
           
-          {/* Geometric Network */}
-          <motion.g stroke="url(#skillsGrad)" strokeWidth="1.5" fill="none" filter="url(#skillsGlow)">
-            {[...Array(30)].map((_, i) => (
+          {/* 3D Network Grid */}
+          <motion.g filter="url(#skillsGlow)">
+            {/* Horizontal Grid Lines */}
+            {[...Array(15)].map((_, i) => (
               <motion.path
-                key={i}
-                d={`M${i * 50},0 L${i * 50 + 25},${Math.random() * 300 + 100} L${(i + 1) * 50},${Math.random() * 300 + 200} L${i * 50 + 75},${Math.random() * 300 + 300}`}
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ pathLength: 1, opacity: 0.6 }}
+                key={`h-grid-${i}`}
+                d={`M0,${i * 60 + 50} Q${700 + Math.random() * 200},${i * 60 + 50 + (Math.random() * 80 - 40)} 1400,${i * 60 + 50}`}
+                stroke="url(#skillsGrad)"
+                strokeWidth="1"
+                strokeOpacity="0.5"
+                fill="none"
+                initial={{ pathLength: 0 }}
+                animate={{ 
+                  pathLength: 1,
+                  y: [0, Math.random() * 20 - 10, 0]
+                }}
                 transition={{
-                  duration: 3,
-                  delay: i * 0.1,
-                  repeat: Infinity,
-                  repeatType: "reverse",
-                  repeatDelay: 4
+                  pathLength: { duration: 2, delay: i * 0.1 },
+                  y: { duration: 10 + i, repeat: Infinity, ease: "easeInOut" }
+                }}
+              />
+            ))}
+            
+            {/* Vertical Grid Lines */}
+            {[...Array(20)].map((_, i) => (
+              <motion.path
+                key={`v-grid-${i}`}
+                d={`M${i * 70 + 50},0 Q${i * 70 + 50 + (Math.random() * 80 - 40)},${450 + Math.random() * 200} ${i * 70 + 50},900`}
+                stroke="url(#skillsGrad)"
+                strokeWidth="1"
+                strokeOpacity="0.5"
+                fill="none"
+                initial={{ pathLength: 0 }}
+                animate={{ 
+                  pathLength: 1,
+                  x: [0, Math.random() * 20 - 10, 0]
+                }}
+                transition={{
+                  pathLength: { duration: 2, delay: i * 0.1 },
+                  x: { duration: 15 + i, repeat: Infinity, ease: "easeInOut" }
                 }}
               />
             ))}
           </motion.g>
           
-          {/* Floating Tech Particles */}
-          {[...Array(60)].map((_, i) => (
-            <motion.circle
-              key={i}
-              cx={Math.random() * 1400}
-              cy={Math.random() * 900}
-              r={Math.random() * 4 + 1}
-              fill="url(#skillsGrad)"
-              filter="url(#skillsGlow)"
-              animate={{
-                scale: [1, 1.8, 1],
-                opacity: [0.3, 1, 0.3],
-                x: [0, Math.random() * 40 - 20, 0],
-                y: [0, Math.random() * 40 - 20, 0]
-              }}
-              transition={{
-                duration: Math.random() * 3 + 2,
-                delay: Math.random() * 4,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
+          {/* 3D Floating Tech Nodes */}
+          {[...Array(30)].map((_, i) => (
+            <motion.g key={`node-${i}`}>
+              <motion.circle
+                cx={Math.random() * 1400}
+                cy={Math.random() * 900}
+                r={Math.random() * 6 + 2}
+                fill="url(#skillsGrad)"
+                filter="url(#skillsGlow)"
+                initial={{ scale: 0 }}
+                animate={{
+                  scale: [0, 1, 1, 0],
+                  opacity: [0, 0.8, 0.8, 0],
+                  x: [0, Math.random() * 100 - 50, Math.random() * 100 - 50, 0],
+                  y: [0, Math.random() * 100 - 50, Math.random() * 100 - 50, 0],
+                  z: [0, Math.random() * 50, 0]
+                }}
+                transition={{
+                  duration: Math.random() * 15 + 10,
+                  delay: Math.random() * 5,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+              
+              {/* Connection Lines between nodes */}
+              {i < 20 && (
+                <motion.line
+                  x1={Math.random() * 1400}
+                  y1={Math.random() * 900}
+                  x2={Math.random() * 1400}
+                  y2={Math.random() * 900}
+                  stroke="url(#skillsGrad)"
+                  strokeWidth="0.5"
+                  strokeOpacity="0.3"
+                  initial={{ pathLength: 0 }}
+                  animate={{ 
+                    pathLength: [0, 1, 1, 0],
+                    opacity: [0, 0.3, 0.3, 0]
+                  }}
+                  transition={{
+                    duration: Math.random() * 10 + 5,
+                    delay: Math.random() * 5,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                />
+              )}
+            </motion.g>
           ))}
+          
+          {/* 3D Perspective Grid Floor */}
+          <motion.g filter="url(#skillsGlow)" opacity="0.2">
+            {[...Array(15)].map((_, i) => (
+              <motion.path
+                key={`floor-${i}`}
+                d={`M${200 + i * 70},800 L${1200 - i * 70},800 L${1200 - i * 70 - 40},${700 - i * 30} L${200 + i * 70 + 40},${700 - i * 30} Z`}
+                fill="none"
+                stroke="url(#skillsGrad)"
+                strokeWidth="0.5"
+                initial={{ opacity: 0 }}
+                animate={{
+                  opacity: [0, 0.2, 0],
+                  y: [0, -10, 0]
+                }}
+                transition={{
+                  duration: 8,
+                  delay: i * 0.3,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+            ))}
+          </motion.g>
         </svg>
       </div>
 
@@ -105,7 +182,7 @@ const Skills = () => {
           className="text-center mb-20"
         >
           <motion.h2 
-            className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={inView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -121,7 +198,7 @@ const Skills = () => {
             transition={{ duration: 0.8, delay: 0.5 }}
           />
           <motion.p
-            className="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto font-sans"
+            className="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.7 }}
@@ -130,7 +207,7 @@ const Skills = () => {
           </motion.p>
         </motion.div>
 
-        {/* Enhanced Orbital Skills Layout */}
+        {/* Orbital Skills Layout */}
         <div className="max-w-7xl mx-auto">
           <motion.div 
             className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12"
@@ -158,9 +235,9 @@ const Skills = () => {
                 }}
                 className="relative group flex flex-col items-center"
               >
-                {/* Enhanced Skill Sphere */}
+                {/* Enhanced 3D Skill Sphere */}
                 <div className="relative w-36 h-36 flex items-center justify-center">
-                  {/* Outer Quantum Ring */}
+                  {/* Outer Orbit Ring */}
                   <motion.div
                     className="absolute w-36 h-36 rounded-full border-2 border-purple-500/40"
                     animate={{
@@ -257,12 +334,12 @@ const Skills = () => {
                   ))}
                 </div>
 
-                {/* Enhanced Skill Name */}
+                {/* Skill Name */}
                 <motion.h3 
                   initial={{ opacity: 0, y: 20 }}
                   animate={inView ? { opacity: 1, y: 0 } : {}}
                   transition={{ delay: index * 0.1 + 0.5 }}
-                  className="text-lg md:text-xl font-sans font-bold text-gray-800 dark:text-white mt-6 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300"
+                  className="text-lg md:text-xl font-bold text-gray-800 dark:text-white mt-6 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300"
                 >
                   {skill.name}
                 </motion.h3>
@@ -280,7 +357,7 @@ const Skills = () => {
           </motion.div>
         </div>
 
-        {/* Enhanced Summary Section */}
+        {/* Summary Section */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -293,7 +370,7 @@ const Skills = () => {
               transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
               className="w-8 h-8 border-2 border-purple-500 border-t-transparent rounded-full"
             />
-            <span className="text-gray-700 dark:text-gray-300 font-medium font-sans text-lg">
+            <span className="text-gray-700 dark:text-gray-300 font-medium text-lg">
               Continuously Learning & Growing
             </span>
             <motion.div

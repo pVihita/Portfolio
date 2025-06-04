@@ -14,37 +14,37 @@ const Achievements = () => {
       title: "🏅 Global Career Accelerator Badge",
       description: "Completed certification in HTML, CSS, and Bootstrap through the GCA program.",
       link: "https://www.credential.net/74c31023-1dd8-4e86-8b18-7f1a518b3b50",
-      image: "https://api.badgr.io/public/badges/136728910"
+      image: "https://api.accredible.com/v1/frontend/credential_website_embed_image/badge/136728910"
     },
     {
       title: "🌍 Intercultural Skills Badge",
       description: "Completed training in intercultural communication, emotional intelligence, and cultural self-awareness to collaborate effectively in diverse global teams.",
       link: "https://www.credential.net/6edc1ed8-8b14-47a5-9899-9787f0ade449",
-      image: "https://api.badgr.io/public/badges/142918764"
+      image: "https://api.accredible.com/v1/frontend/credential_website_embed_image/badge/142918764"
     },
     {
       title: "🏅 JavaScript & APIs Badge",
       description: "Completed certification in JavaScript & APIs through the GCA program.",
       link: "https://www.credential.net/3e175b16-4b2e-4b24-93d7-4b24077e3dbe",
-      image: "https://api.badgr.io/public/badges/142435296"
+      image: "https://api.accredible.com/v1/frontend/credential_website_embed_image/badge/142435296"
     },
     {
       title: "🏅 Global Career Accelerator Certificate",
       description: "Completed training in HTML, CSS, JavaScript, and Bootstrap, demonstrating strong front-end development and responsive design skills.",
       link: "https://www.credential.net/68ac15e5-2b79-41d8-be2e-20433056a854",
-      image: "https://api.badgr.io/public/badges/142704496"
+      image: "https://api.accredible.com/v1/frontend/credential_website_embed_image/certificate/142704496"
     },
     {
       title: "💻 Publicis Sapient Project Certificate",
       description: "Completed a real-world web development project using JavaScript and prototyping frameworks, applying product management and user research skills.",
       link: "https://www.credential.net/421ca7be-749a-490a-9a26-8b2018c311ca",
-      image: "https://api.badgr.io/public/badges/142922854"
+      image: "https://api.accredible.com/v1/frontend/credential_website_embed_image/certificate/142922854"
     }
   ];
 
   return (
     <section id="achievements" className="py-20 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 dark:from-black dark:via-purple-950 dark:to-black relative overflow-hidden">
-      {/* Animated Achievement Background SVG */}
+      {/* Animated Achievement Background */}
       <div className="absolute inset-0 opacity-10">
         <svg width="100%" height="100%" viewBox="0 0 1200 800" className="absolute">
           <defs>
@@ -53,14 +53,46 @@ const Achievements = () => {
               <stop offset="50%" stopColor="#FFA500" />
               <stop offset="100%" stopColor="#FF6347" />
             </linearGradient>
+            <filter id="achieveGlow">
+              <feGaussianBlur stdDeviation="4" result="glow"/>
+              <feComposite in="SourceGraphic" in2="glow" operator="over"/>
+            </filter>
           </defs>
           
-          {/* Trophy and Star Animations */}
-          {[...Array(12)].map((_, i) => (
+          {/* 3D Trophy */}
+          <motion.g 
+            filter="url(#achieveGlow)"
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ 
+              scale: 1, 
+              opacity: 0.7,
+              y: [0, -20, 0]
+            }}
+            transition={{
+              scale: { duration: 1 },
+              opacity: { duration: 1 },
+              y: { duration: 5, repeat: Infinity, ease: "easeInOut" }
+            }}
+          >
+            {/* Trophy Base */}
+            <rect x="550" y="600" width="100" height="20" fill="url(#achieveGrad)" />
+            <rect x="570" y="580" width="60" height="20" fill="url(#achieveGrad)" />
+            
+            {/* Trophy Stem */}
+            <rect x="590" y="480" width="20" height="100" fill="url(#achieveGrad)" />
+            
+            {/* Trophy Cup */}
+            <path d="M550,480 Q600,420 650,480 L630,480 Q600,450 570,480 Z" fill="url(#achieveGrad)" />
+            <path d="M560,480 L640,480 L630,450 L570,450 Z" fill="url(#achieveGrad)" />
+          </motion.g>
+          
+          {/* Star Animations */}
+          {[...Array(15)].map((_, i) => (
             <motion.g key={i}>
               <motion.polygon
                 points="0,-20 6,-8 20,-8 10,0 16,12 0,6 -16,12 -10,0 -20,-8 -6,-8"
                 fill="url(#achieveGrad)"
+                filter="url(#achieveGlow)"
                 initial={{ 
                   x: Math.random() * 1200, 
                   y: Math.random() * 800,
@@ -70,7 +102,8 @@ const Achievements = () => {
                 animate={{
                   scale: [0, 1, 0.7, 1, 0],
                   rotate: [0, 360, 180, 360, 0],
-                  y: Math.random() * 800,
+                  y: [Math.random() * 800, Math.random() * 800 - 200],
+                  opacity: [0, 0.8, 0.5, 0.8, 0]
                 }}
                 transition={{
                   duration: Math.random() * 6 + 4,
@@ -81,6 +114,47 @@ const Achievements = () => {
               />
             </motion.g>
           ))}
+          
+          {/* 3D Medal Ribbons */}
+          {[...Array(5)].map((_, i) => {
+            const x = 300 + i * 150;
+            return (
+              <motion.g key={`medal-${i}`} filter="url(#achieveGlow)">
+                <motion.path
+                  d={`M${x},200 C${x-30},250 ${x-20},300 ${x},320 C${x+20},300 ${x+30},250 ${x},200`}
+                  fill="none"
+                  stroke="url(#achieveGrad)"
+                  strokeWidth="8"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ 
+                    pathLength: 1, 
+                    opacity: 0.7,
+                    y: [0, 10, 0]
+                  }}
+                  transition={{
+                    pathLength: { duration: 2, delay: i * 0.3 },
+                    opacity: { duration: 1, delay: i * 0.3 },
+                    y: { duration: 3, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }
+                  }}
+                />
+                <motion.circle
+                  cx={x}
+                  cy="200"
+                  r="25"
+                  fill="url(#achieveGrad)"
+                  initial={{ scale: 0 }}
+                  animate={{ 
+                    scale: 1,
+                    y: [0, 10, 0]
+                  }}
+                  transition={{
+                    scale: { duration: 1, delay: i * 0.3 + 0.5 },
+                    y: { duration: 3, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }
+                  }}
+                />
+              </motion.g>
+            );
+          })}
         </svg>
       </div>
 
@@ -118,7 +192,7 @@ const Achievements = () => {
               className="group perspective-1000"
             >
               <div className="relative bg-white/10 dark:bg-gray-800/50 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/20 hover:border-purple-400/50 transition-all duration-300 h-full overflow-hidden">
-                {/* Animated SVG Background Pattern */}
+                {/* Subtle Background Pattern */}
                 <div className="absolute inset-0 opacity-20">
                   <svg width="100%" height="100%" viewBox="0 0 300 400">
                     <defs>
@@ -143,28 +217,6 @@ const Achievements = () => {
                         ease: "easeOut"
                       }}
                     />
-                    {/* Orbiting Elements */}
-                    {[...Array(3)].map((_, orbIndex) => (
-                      <motion.circle
-                        key={orbIndex}
-                        r="4"
-                        fill="#8B5CF6"
-                        initial={{ 
-                          cx: 150, 
-                          cy: 200 
-                        }}
-                        animate={{
-                          cx: 150 + Math.cos((orbIndex * 120) * (Math.PI / 180)) * 60,
-                          cy: 200 + Math.sin((orbIndex * 120) * (Math.PI / 180)) * 60,
-                        }}
-                        transition={{
-                          duration: 4,
-                          repeat: Infinity,
-                          ease: "linear",
-                          delay: index * 0.1 + orbIndex * 0.3
-                        }}
-                      />
-                    ))}
                   </svg>
                 </div>
 
@@ -208,7 +260,7 @@ const Achievements = () => {
                       <img 
                         src={achievement.image} 
                         alt="Achievement Badge" 
-                        className="w-24 h-24 object-contain"
+                        className="w-32 h-32 object-contain"
                       />
                       {/* Glow Effect */}
                       <motion.div
@@ -255,18 +307,6 @@ const Achievements = () => {
                     </motion.a>
                   </div>
                 </div>
-
-                {/* Corner Decorations */}
-                <motion.div
-                  initial={{ scale: 0, rotate: 0 }}
-                  animate={inView ? { scale: 1, rotate: 360 } : {}}
-                  transition={{ delay: index * 0.15 + 0.8, duration: 1 }}
-                  className="absolute top-4 right-4 w-6 h-6"
-                >
-                  <svg viewBox="0 0 24 24" fill="currentColor" className="text-purple-400">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                  </svg>
-                </motion.div>
               </div>
             </motion.div>
           ))}

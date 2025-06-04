@@ -28,245 +28,292 @@ const Hero = () => {
 
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Enhanced High-Tech SVG Background */}
-      <div className="absolute inset-0 flex items-center justify-center">
+      {/* Advanced 3D SVG Background */}
+      <div className="absolute inset-0">
         <svg
-          width="1200"
-          height="900"
-          viewBox="0 0 1200 900"
+          width="100%"
+          height="100%"
+          viewBox="0 0 1920 1080"
           className="opacity-20"
           xmlns="http://www.w3.org/2000/svg"
+          style={{ position: 'absolute', top: 0, left: 0 }}
         >
           <defs>
-            <linearGradient id="techGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0.9" />
-              <stop offset="25%" stopColor="#EC4899" stopOpacity="0.7" />
-              <stop offset="50%" stopColor="#06B6D4" stopOpacity="0.9" />
-              <stop offset="75%" stopColor="#10B981" stopOpacity="0.7" />
-              <stop offset="100%" stopColor="#F59E0B" stopOpacity="0.9" />
+            <linearGradient id="heroGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#8B5CF6" />
+              <stop offset="50%" stopColor="#EC4899" />
+              <stop offset="100%" stopColor="#06B6D4" />
             </linearGradient>
-            <linearGradient id="codeStream" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#10B981" stopOpacity="0.9" />
-              <stop offset="50%" stopColor="#3B82F6" stopOpacity="0.7" />
-              <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0.9" />
-            </linearGradient>
-            <filter id="techGlow">
-              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-              <feMerge> 
-                <feMergeNode in="coloredBlur"/>
-                <feMergeNode in="SourceGraphic"/>
-              </feMerge>
+            
+            <filter id="heroGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="10" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
             </filter>
+            
             <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0.3"/>
-              <stop offset="100%" stopColor="transparent"/>
+              <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0.7" />
+              <stop offset="100%" stopColor="transparent" />
             </radialGradient>
+
+            {/* 3D Effect Definitions */}
+            <linearGradient id="cubeTopFace" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#8B5CF6" />
+              <stop offset="100%" stopColor="#6D28D9" />
+            </linearGradient>
+            
+            <linearGradient id="cubeFrontFace" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#EC4899" />
+              <stop offset="100%" stopColor="#BE185D" />
+            </linearGradient>
+            
+            <linearGradient id="cubeSideFace" x1="100%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#06B6D4" />
+              <stop offset="100%" stopColor="#0284C7" />
+            </linearGradient>
           </defs>
           
-          {/* Central Holographic Interface */}
-          <motion.g
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.5, ease: "easeOut" }}
-          >
-            {/* Main Interface Frame */}
-            <motion.rect 
-              x="200" 
-              y="150" 
-              width="800" 
-              height="600" 
-              rx="30" 
-              fill="none" 
-              stroke="url(#techGrad)" 
-              strokeWidth="2"
-              filter="url(#techGlow)"
-              animate={{
-                strokeDasharray: ["0 40", "40 40", "80 40"],
-                opacity: [0.6, 1, 0.6]
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "linear"
-              }}
-            />
-
-            {/* Code Matrix Rain Effect */}
-            {[...Array(20)].map((_, i) => (
-              <motion.g key={`matrix-${i}`}>
-                {[...Array(12)].map((_, j) => (
-                  <motion.text
-                    key={`char-${j}`}
-                    x={230 + i * 35}
-                    y={180 + j * 45}
-                    fontSize="10"
-                    fill="url(#codeStream)"
-                    fontFamily="JetBrains Mono, monospace"
-                    filter="url(#techGlow)"
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ 
-                      opacity: [0, 1, 0],
-                      y: [180 + j * 45, 180 + j * 45 + 600, 180 + j * 45 + 1200]
-                    }}
-                    transition={{
-                      duration: 5 + Math.random() * 3,
-                      delay: i * 0.15 + j * 0.08,
-                      repeat: Infinity,
-                      ease: "linear"
-                    }}
-                  >
-                    {Math.random() > 0.7 ? (Math.random() > 0.5 ? '{' : '}') : 
-                     Math.random() > 0.6 ? (Math.random() > 0.5 ? '(' : ')') :
-                     Math.random() > 0.5 ? '1' : '0'}
-                  </motion.text>
-                ))}
-              </motion.g>
-            ))}
-
-            {/* Animated Tech Symbols */}
-            <motion.g filter="url(#techGlow)">
-              {/* React Atom Enhanced */}
-              <motion.g
-                animate={{
-                  rotate: 360,
-                  scale: [1, 1.2, 1]
-                }}
-                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-              >
-                <circle cx="300" cy="300" r="6" fill="#61DAFB" />
-                {[0, 60, 120].map((angle) => (
-                  <ellipse 
-                    key={angle}
-                    cx="300" 
-                    cy="300" 
-                    rx="40" 
-                    ry="15" 
-                    fill="none" 
-                    stroke="#61DAFB" 
-                    strokeWidth="2" 
-                    transform={`rotate(${angle} 300 300)`}
-                  />
-                ))}
-              </motion.g>
-
-              {/* JavaScript Quantum Circuit */}
-              <motion.g
-                animate={{
-                  rotate: -360,
-                  x: [0, 20, 0]
-                }}
-                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-              >
-                <rect x="850" y="250" width="80" height="80" rx="10" fill="#F7DF1E" />
-                <text x="890" y="300" fontSize="24" fill="#000" fontWeight="bold" textAnchor="middle" fontFamily="JetBrains Mono">JS</text>
-                {/* Circuit lines */}
-                <path d="M 850 290 L 800 290 L 800 250" stroke="#F7DF1E" strokeWidth="2" fill="none"/>
-                <path d="M 930 290 L 980 290 L 980 350" stroke="#F7DF1E" strokeWidth="2" fill="none"/>
-              </motion.g>
-
-              {/* CSS Grid Animation */}
-              <motion.g
-                animate={{
-                  rotateY: [0, 180, 360],
-                  scale: [1, 1.1, 1]
-                }}
-                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              >
-                {[0, 1, 2].map((row) => 
-                  [0, 1, 2].map((col) => (
-                    <motion.rect
-                      key={`${row}-${col}`}
-                      x={250 + col * 25}
-                      y={500 + row * 25}
-                      width="20"
-                      height="20"
-                      fill="#1572B6"
-                      animate={{
-                        opacity: [0.5, 1, 0.5],
-                        scale: [1, 1.2, 1]
-                      }}
-                      transition={{
-                        duration: 2,
-                        delay: (row + col) * 0.2,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                      }}
-                    />
-                  ))
-                )}
-              </motion.g>
-
-              {/* TypeScript Diamond */}
-              <motion.g
-                animate={{
-                  rotate: 360,
-                  y: [0, -15, 0]
-                }}
-                transition={{ duration: 7, repeat: Infinity, ease: "linear" }}
-              >
-                <polygon points="900,500 930,530 900,560 870,530" fill="#3178C6" />
-                <text x="900" y="540" fontSize="14" fill="white" fontWeight="bold" textAnchor="middle" fontFamily="JetBrains Mono">TS</text>
-              </motion.g>
-            </motion.g>
-
-            {/* Quantum Data Streams */}
-            <motion.g stroke="url(#techGrad)" strokeWidth="1.5" fill="none" opacity="0.7">
-              {[...Array(25)].map((_, i) => (
-                <motion.path
-                  key={`stream-${i}`}
-                  d={`M ${150 + i * 40} 750 Q ${250 + i * 30} ${650 - i * 15} ${350 + i * 35} 700`}
-                  initial={{ pathLength: 0, opacity: 0 }}
-                  animate={{ pathLength: 1, opacity: 0.7 }}
-                  transition={{ 
-                    duration: 2.5, 
-                    delay: i * 0.08,
-                    repeat: Infinity, 
-                    repeatDelay: 3,
-                    ease: "easeInOut" 
-                  }}
-                />
-              ))}
-              
-              {/* Data Particles */}
-              {[...Array(15)].map((_, i) => (
-                <motion.circle
-                  key={`particle-${i}`}
-                  r="3"
-                  fill="#8B5CF6"
-                  filter="url(#techGlow)"
-                  animate={{
-                    scale: [0, 1.5, 0],
-                    opacity: [0, 1, 0]
-                  }}
-                  transition={{
-                    duration: 3,
-                    delay: Math.random() * 2,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                >
-                  <animateMotion
-                    dur={`${4 + i * 0.3}s`}
-                    repeatCount="indefinite"
-                    path={`M ${150 + i * 40} 750 Q ${250 + i * 30} ${650 - i * 15} ${350 + i * 35} 700`}
-                  />
-                </motion.circle>
-              ))}
-            </motion.g>
-          </motion.g>
-
-          {/* Background Ambient Effects */}
+          {/* Center Platform */}
           <motion.circle
-            cx="600"
-            cy="450"
-            r="300"
+            cx="960"
+            cy="540"
+            r="400"
             fill="url(#centerGlow)"
             animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.1, 0.3, 0.1]
+              r: [400, 430, 400],
+              opacity: [0.4, 0.6, 0.4]
             }}
             transition={{
               duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+
+          {/* 3D Grid Effect */}
+          <motion.g opacity="0.6">
+            {/* Horizontal Grid Lines */}
+            {[...Array(20)].map((_, i) => (
+              <motion.path
+                key={`h-grid-${i}`}
+                d={`M0,${300 + i * 30} C${640},${300 + i * 30 + (i % 2 === 0 ? 40 : -40)} ${1280},${300 + i * 30 + (i % 2 === 0 ? -30 : 30)} 1920,${300 + i * 30}`}
+                stroke="url(#heroGradient)"
+                strokeWidth="1"
+                strokeOpacity="0.3"
+                fill="none"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{
+                  duration: 3,
+                  delay: i * 0.1,
+                  repeat: Infinity,
+                  repeatType: "loop",
+                  ease: "easeInOut"
+                }}
+              />
+            ))}
+
+            {/* Vertical Grid Lines */}
+            {[...Array(30)].map((_, i) => (
+              <motion.path
+                key={`v-grid-${i}`}
+                d={`M${300 + i * 50},0 C${300 + i * 50 + (i % 2 === 0 ? 50 : -50)},${540} ${300 + i * 50 + (i % 2 === 0 ? -30 : 30)},${800} ${300 + i * 50},1080`}
+                stroke="url(#heroGradient)"
+                strokeWidth="1"
+                strokeOpacity="0.2"
+                fill="none"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{
+                  duration: 3,
+                  delay: i * 0.07 + 1,
+                  repeat: Infinity,
+                  repeatType: "loop",
+                  ease: "easeInOut"
+                }}
+              />
+            ))}
+          </motion.g>
+
+          {/* 3D Cubes */}
+          {[...Array(8)].map((_, i) => {
+            const x = 200 + i * 220;
+            const y = 300 + ((i % 3) * 200);
+            const size = 40 + Math.random() * 30;
+            
+            return (
+              <motion.g 
+                key={`cube-${i}`}
+                initial={{ opacity: 0 }}
+                animate={{ 
+                  opacity: 1,
+                  y: [y - 20, y + 20, y - 20],
+                  x: [x - 10, x + 10, x - 10],
+                  rotateY: [0, 360],
+                  rotateX: [30, 60, 30]
+                }}
+                transition={{
+                  opacity: { duration: 1 },
+                  y: { duration: 10 + i, repeat: Infinity, ease: "easeInOut" },
+                  x: { duration: 15 + i, repeat: Infinity, ease: "easeInOut" },
+                  rotateY: { duration: 20, repeat: Infinity, ease: "linear" },
+                  rotateX: { duration: 15, repeat: Infinity, ease: "easeInOut" }
+                }}
+                style={{
+                  transformStyle: "preserve-3d",
+                  transformOrigin: `${x}px ${y}px`
+                }}
+              >
+                {/* Top Face */}
+                <path 
+                  d={`M${x-size/2},${y-size/2} l${size},${-size/2} l${size},${size/2} l${-size},${size/2} Z`}
+                  fill="url(#cubeTopFace)" 
+                  opacity="0.9"
+                  stroke="white"
+                  strokeWidth="0.5"
+                />
+                
+                {/* Front Face */}
+                <path 
+                  d={`M${x-size/2},${y-size/2} l${-size},${size/2} l0,${size} l${size},${-size/2} Z`}
+                  fill="url(#cubeFrontFace)" 
+                  opacity="0.7"
+                  stroke="white"
+                  strokeWidth="0.5"
+                />
+                
+                {/* Right Face */}
+                <path 
+                  d={`M${x-size/2},${y-size/2} l${size},${-size/2} l0,${size} l${-size},${size/2} Z`}
+                  fill="url(#cubeSideFace)" 
+                  opacity="0.8"
+                  stroke="white"
+                  strokeWidth="0.5"
+                />
+              </motion.g>
+            );
+          })}
+
+          {/* Floating Code Elements */}
+          {[...Array(25)].map((_, i) => (
+            <motion.text
+              key={`code-${i}`}
+              x={Math.random() * 1920}
+              y={Math.random() * 1080}
+              fontFamily="JetBrains Mono, monospace"
+              fontSize="12"
+              fill="url(#heroGradient)"
+              opacity="0.7"
+              filter="url(#heroGlow)"
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: [0, 0.7, 0],
+                y: [
+                  Math.random() * 1080,
+                  Math.random() * 1080 - 200,
+                  Math.random() * 1080 - 400
+                ],
+                x: [
+                  Math.random() * 1920,
+                  Math.random() * 1920 + (Math.random() * 100 - 50),
+                  Math.random() * 1920
+                ]
+              }}
+              transition={{
+                duration: 15 + Math.random() * 10,
+                delay: Math.random() * 5,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              {['function()', 'const app = {}', '<React />', 'import', 'export', '{code}', 'useState()', '=>'][Math.floor(Math.random() * 8)]}
+            </motion.text>
+          ))}
+
+          {/* 3D Orbitals */}
+          {[...Array(3)].map((_, i) => (
+            <motion.g key={`orbital-${i}`}>
+              <motion.ellipse
+                cx="960"
+                cy="540"
+                rx={150 + i * 100}
+                ry={50 + i * 30}
+                fill="none"
+                stroke="url(#heroGradient)"
+                strokeWidth="1"
+                strokeOpacity="0.3"
+                animate={{
+                  rotateX: [30, 60, 30],
+                  rotateY: [0, 360],
+                  rx: [150 + i * 100, 170 + i * 100, 150 + i * 100],
+                  ry: [50 + i * 30, 60 + i * 30, 50 + i * 30]
+                }}
+                transition={{
+                  rotateX: { duration: 15 + i * 5, repeat: Infinity, ease: "easeInOut" },
+                  rotateY: { duration: 30 + i * 10, repeat: Infinity, ease: "linear" },
+                  rx: { duration: 8 + i * 3, repeat: Infinity, ease: "easeInOut" },
+                  ry: { duration: 8 + i * 3, repeat: Infinity, ease: "easeInOut" }
+                }}
+                style={{
+                  transformOrigin: "960px 540px",
+                  transformStyle: "preserve-3d"
+                }}
+              />
+              
+              {/* Particles along orbital path */}
+              {[...Array(6)].map((_, j) => {
+                const angle = j * 60;
+                const x = 960 + (150 + i * 100) * Math.cos(angle * Math.PI / 180);
+                const y = 540 + (50 + i * 30) * Math.sin(angle * Math.PI / 180);
+                
+                return (
+                  <motion.circle
+                    key={`orbital-particle-${i}-${j}`}
+                    cx="960"
+                    cy="540"
+                    r="4"
+                    fill="url(#heroGradient)"
+                    filter="url(#heroGlow)"
+                    animate={{
+                      cx: [
+                        960 + (150 + i * 100) * Math.cos((angle) * Math.PI / 180),
+                        960 + (150 + i * 100) * Math.cos((angle + 120) * Math.PI / 180),
+                        960 + (150 + i * 100) * Math.cos((angle + 240) * Math.PI / 180),
+                        960 + (150 + i * 100) * Math.cos((angle + 360) * Math.PI / 180)
+                      ],
+                      cy: [
+                        540 + (50 + i * 30) * Math.sin((angle) * Math.PI / 180),
+                        540 + (50 + i * 30) * Math.sin((angle + 120) * Math.PI / 180),
+                        540 + (50 + i * 30) * Math.sin((angle + 240) * Math.PI / 180),
+                        540 + (50 + i * 30) * Math.sin((angle + 360) * Math.PI / 180)
+                      ],
+                      r: [4, 6, 4],
+                      opacity: [0.6, 1, 0.6]
+                    }}
+                    transition={{
+                      duration: 10 + i * 2,
+                      repeat: Infinity,
+                      ease: "linear",
+                      delay: j * 0.5
+                    }}
+                  />
+                );
+              })}
+            </motion.g>
+          ))}
+
+          {/* Glowing Central Core */}
+          <motion.circle
+            cx="960"
+            cy="540"
+            r="30"
+            fill="url(#heroGradient)"
+            filter="url(#heroGlow)"
+            animate={{
+              r: [30, 45, 30],
+              filter: ["blur(5px)", "blur(15px)", "blur(5px)"]
+            }}
+            transition={{
+              duration: 4,
               repeat: Infinity,
               ease: "easeInOut"
             }}
@@ -285,7 +332,7 @@ const Hero = () => {
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-6xl md:text-8xl lg:text-9xl font-display font-bold"
+            className="text-6xl md:text-7xl lg:text-8xl font-bold"
           >
             <motion.span
               className="bg-gradient-to-r from-purple-400 via-pink-400 to-purple-600 bg-clip-text text-transparent bg-200% animate-gradient-shift"
@@ -306,7 +353,7 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="text-xl md:text-2xl lg:text-3xl text-gray-300 h-16 flex items-center justify-center font-sans font-medium"
+            className="text-xl md:text-2xl lg:text-3xl text-gray-300 h-16 flex items-center justify-center font-medium"
           >
             <motion.span
               key={text}
@@ -330,7 +377,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8 }}
-            className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed font-sans"
+            className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed"
           >
             Passionate about web development and modern technologies. 
             Currently studying Computer Science at ASU while building exceptional digital experiences 
@@ -351,7 +398,7 @@ const Hero = () => {
               <Button
                 onClick={scrollToAbout}
                 size="lg"
-                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-10 py-4 rounded-full text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-purple-500/25 font-sans"
+                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-10 py-4 rounded-full text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-purple-500/25"
               >
                 <motion.span
                   className="group-hover:animate-text-shimmer bg-gradient-to-r from-white via-purple-200 to-white bg-200% bg-clip-text"
@@ -370,7 +417,7 @@ const Hero = () => {
                 variant="outline"
                 size="lg"
                 onClick={() => window.open('mailto:romilpatel2007@gmail.com')}
-                className="border-2 border-purple-500 text-purple-400 hover:bg-purple-500 hover:text-white px-10 py-4 rounded-full text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-purple-500/25 font-sans"
+                className="border-2 border-purple-500 text-purple-400 hover:bg-purple-500 hover:text-white px-10 py-4 rounded-full text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-purple-500/25"
               >
                 Get In Touch
               </Button>
