@@ -10,6 +10,7 @@ import Achievements from '@/components/portfolio/Achievements';
 import Projects from '@/components/portfolio/Projects';
 import Contact from '@/components/portfolio/Contact';
 import ParticleBackground from '@/components/portfolio/ParticleBackground';
+import CursorFollower from '@/components/portfolio/CursorFollower';
 
 const Portfolio = () => {
   const [mounted, setMounted] = useState(false);
@@ -25,6 +26,7 @@ const Portfolio = () => {
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 dark:from-black dark:via-purple-950 dark:to-black text-white overflow-x-hidden">
       <ParticleBackground />
+      <CursorFollower />
       <Navigation />
       
       <motion.main 
