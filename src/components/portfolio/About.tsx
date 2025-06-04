@@ -15,11 +15,6 @@ const About = () => {
       description: "Pursuing my Bachelor's degree in Computer Science with a focus on web development and software engineering."
     },
     {
-      title: "💻 Frontend Developer",
-      company: "Self-Employed & Projects",
-      description: "Building responsive web applications using React, TypeScript, and modern web technologies."
-    },
-    {
       title: "🏆 Certified Developer",
       company: "Global Career Accelerator",
       description: "Completed comprehensive training in HTML, CSS, JavaScript, and responsive design principles."
@@ -125,9 +120,9 @@ const About = () => {
               transition={{ duration: 0.6, delay: 0.6 }}
               className="text-lg text-gray-300 leading-relaxed"
             >
-              I specialize in <span className="text-pink-400 font-semibold">frontend development</span> 
-              with expertise in React, TypeScript, and modern web technologies. I'm constantly learning 
-              and staying up-to-date with the latest industry trends and best practices.
+              I'm passionate about <span className="text-pink-400 font-semibold">web development</span> 
+              and constantly learning modern technologies. I'm always exploring new frameworks and 
+              staying up-to-date with the latest industry trends and best practices.
             </motion.p>
             
             <motion.p
@@ -149,7 +144,7 @@ const About = () => {
             >
               {[
                 { number: "15+", label: "Projects Completed" },
-                { number: "5+", label: "Technologies Mastered" }
+                { number: "5+", label: "Technologies Learning" }
               ].map((stat, index) => (
                 <motion.div
                   key={index}
@@ -212,14 +207,14 @@ const About = () => {
                       transition={{ duration: 2, delay: 1 + index * 0.3 }}
                     />
                     {/* Animated Dots */}
-                    <motion.circle r="3" fill={`url(#expGrad${index})`}>
-                      <motion.animateMotion
+                    <circle r="3" fill={`url(#expGrad${index})`}>
+                      <animateMotion
                         dur="4s"
                         repeatCount="indefinite"
                         begin={`${index * 0.5}s`}
                         path="M0,75 Q75,25 150,75 T300,75"
                       />
-                    </motion.circle>
+                    </circle>
                   </svg>
                 </div>
 
