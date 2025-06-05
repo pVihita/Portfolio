@@ -85,9 +85,9 @@ const Projects = () => {
               initial={{ opacity: 0, y: 50 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group"
+              className="group h-full"
             >
-              <div className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border border-purple-100 dark:border-purple-800 h-full">
+              <div className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border border-purple-100 dark:border-purple-800 h-full flex flex-col">
                 <div className="relative overflow-hidden">
                   <img 
                     src={project.image} 
@@ -97,7 +97,7 @@ const Projects = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-purple-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
                 
-                <div className="p-6">
+                <div className="p-6 flex flex-col flex-grow">
                   <div className="flex items-center gap-2 mb-3">
                     <h3 className="text-xl font-bold text-gray-800 dark:text-white">
                       {project.title}
@@ -109,7 +109,7 @@ const Projects = () => {
                     )}
                   </div>
                   
-                  <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+                  <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed flex-grow">
                     {project.description}
                   </p>
                   
@@ -124,7 +124,7 @@ const Projects = () => {
                     ))}
                   </div>
                   
-                  <div className="flex gap-4">
+                  <div className="flex gap-4 mt-auto">
                     <Button
                       asChild
                       className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"

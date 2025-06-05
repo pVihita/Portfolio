@@ -1,4 +1,3 @@
-
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { ExternalLink } from 'lucide-react';
@@ -189,9 +188,9 @@ const Achievements = () => {
                 rotateY: 5,
                 transition: { duration: 0.3 }
               }}
-              className="group perspective-1000"
+              className="group perspective-1000 h-full"
             >
-              <div className="relative bg-white/10 dark:bg-gray-800/50 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/20 hover:border-purple-400/50 transition-all duration-300 h-full overflow-hidden">
+              <div className="relative bg-white/10 dark:bg-gray-800/50 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/20 hover:border-purple-400/50 transition-all duration-300 h-full overflow-hidden flex flex-col">
                 {/* Subtle Background Pattern */}
                 <div className="absolute inset-0 opacity-20">
                   <svg width="100%" height="100%" viewBox="0 0 300 400">
@@ -220,8 +219,8 @@ const Achievements = () => {
                   </svg>
                 </div>
 
-                <div className="relative z-10">
-                  <div className="text-center mb-4">
+                <div className="relative z-10 flex flex-col h-full">
+                  <div className="text-center mb-4 flex-grow">
                     <motion.h3
                       initial={{ opacity: 0, y: 20 }}
                       animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -281,7 +280,7 @@ const Achievements = () => {
                     </motion.div>
                   </div>
 
-                  <div className="text-center">
+                  <div className="text-center mt-auto">
                     <motion.a
                       href={achievement.link}
                       target="_blank"
