@@ -7,14 +7,11 @@ import { Button } from '@/components/ui/button';
 import { useAdmin } from '@/contexts/AdminContext';
 import { useData } from '@/contexts/DataContext';
 import { toast } from '@/components/ui/use-toast';
-import ProjectManager from './ProjectManager';
-import AchievementManager from './AchievementManager';
 
 const AdminDashboard = () => {
   const { logout } = useAdmin();
   const { projects, achievements } = useData();
   const navigate = useNavigate();
-  const [currentView, setCurrentView] = React.useState<'dashboard' | 'projects' | 'achievements'>('dashboard');
 
   const handleLogout = () => {
     logout();
@@ -25,14 +22,6 @@ const AdminDashboard = () => {
     navigate('/');
   };
 
-  if (currentView === 'projects') {
-    return <ProjectManager />;
-  }
-
-  if (currentView === 'achievements') {
-    return <AchievementManager />;
-  }
-
   const adminCards = [
     {
       title: "Manage Projects",
@@ -40,7 +29,7 @@ const AdminDashboard = () => {
       icon: FolderOpen,
       color: "from-blue-600 to-blue-700",
       count: projects.length,
-      onClick: () => setCurrentView('projects')
+      comingSoon: true
     },
     {
       title: "Manage Achievements",
@@ -48,7 +37,7 @@ const AdminDashboard = () => {
       icon: Award,
       color: "from-green-600 to-green-700",
       count: achievements.length,
-      onClick: () => setCurrentView('achievements')
+      comingSoon: true
     },
     {
       title: "Data Management",
@@ -117,10 +106,10 @@ const AdminDashboard = () => {
           </div>
           <div className="bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-purple-500/20">
             <div className="text-2xl font-bold text-purple-400">100%</div>
-            <div className="text-sm text-gray-300">System Ready</div>
+            <div className="text-sm text-gray-300">Data Ready</div>
           </div>
           <div className="bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-yellow-500/20">
-            <div className="text-2xl font-bold text-yellow-400">Phase 3</div>
+            <div className="text-2xl font-bold text-yellow-400">Phase 2</div>
             <div className="text-sm text-gray-300">Complete</div>
           </div>
         </motion.div>
@@ -149,7 +138,7 @@ const AdminDashboard = () => {
                   )}
                   {card.comingSoon && (
                     <span className="text-xs bg-yellow-500/20 text-yellow-400 px-2 py-1 rounded-full">
-                      Phase 4
+                      Phase 3
                     </span>
                   )}
                 </h3>
@@ -158,12 +147,11 @@ const AdminDashboard = () => {
                 
                 <Button
                   disabled={card.comingSoon}
-                  onClick={card.onClick}
                   className={`w-full bg-gradient-to-r ${card.color} hover:opacity-90 transition-opacity ${
                     card.comingSoon ? 'opacity-50 cursor-not-allowed' : ''
                   }`}
                 >
-                  {card.comingSoon ? 'Phase 4' : 'Open'}
+                  {card.comingSoon ? 'Phase 3' : 'Open'}
                 </Button>
               </div>
             </motion.div>
@@ -179,14 +167,14 @@ const AdminDashboard = () => {
         >
           <h3 className="text-lg font-semibold text-white mb-2">📋 Development Status</h3>
           <p className="text-gray-300 mb-4">
-            Phase 3 complete! Admin CRUD interfaces are now ready. You can now add, edit, and delete 
-            projects and achievements through user-friendly forms.
+            Phase 2 complete! Data management system is now ready. Your portfolio data is safely stored 
+            and the admin panel can now manage content dynamically.
           </p>
           <div className="text-sm text-purple-300">
             <p>✅ Phase 1: Admin Authentication & Dashboard</p>
             <p>✅ Phase 2: Data Management System</p>
-            <p>✅ Phase 3: Admin CRUD Interfaces</p>
-            <p>⏳ Phase 4: Final Integration & Polish (Next)</p>
+            <p>🔄 Phase 3: Admin CRUD Interfaces (Next)</p>
+            <p>⏳ Phase 4: Integration & Polish</p>
           </div>
         </motion.div>
       </div>
