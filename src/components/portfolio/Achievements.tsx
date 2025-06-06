@@ -11,40 +11,34 @@ const Achievements = () => {
 
   const achievements = [
     {
-      title: 'AWS Certified Solutions Architect',
-      description: 'Professional certification demonstrating expertise in designing distributed systems on AWS.',
-      image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=200',
-      link: 'https://example.com/cert1'
+      title: 'HTML, CSS, and Bootstrap Badge',
+      description: 'Completed certification in HTML, CSS, and Bootstrap through the GCA program.',
+      image: 'https://api.accredible.com/v1/frontend/credential_website_embed_image/badge/136728910',
+      link: 'https://www.credential.net/74c31023-1dd8-4e86-8b18-7f1a518b3b50'
     },
     {
-      title: 'React Developer Certification',
-      description: 'Advanced certification in React development and best practices.',
-      image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&q=80&w=200',
-      link: 'https://example.com/cert2'
+      title: 'JavaScript & APIs Badge',
+      description: 'Completed certification in JavaScript & APIs through the GCA program.',
+      image: 'https://api.accredible.com/v1/frontend/credential_website_embed_image/badge/142435296',
+      link: 'https://www.credential.net/3e175b16-4b2e-4b24-93d7-4b24077e3dbe'
     },
     {
-      title: 'Google Cloud Professional',
-      description: 'Certification in Google Cloud Platform services and architecture.',
-      image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=200',
-      link: 'https://example.com/cert3'
+      title: 'Intercultural Skills Badge',
+      description: 'Completed training in intercultural communication, emotional intelligence, and cultural self-awareness to collaborate effectively in diverse global teams.',
+      image: 'https://api.accredible.com/v1/frontend/credential_website_embed_image/badge/142918764',
+      link: 'https://www.credential.net/6edc1ed8-8b14-47a5-9899-9787f0ade449'
     },
     {
-      title: 'Full Stack Developer Bootcamp',
-      description: 'Completed intensive 12-week bootcamp covering modern web development technologies.',
-      image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=200',
-      link: 'https://example.com/cert4'
+      title: 'Global Career Accelerator Certificate',
+      description: 'Completed training in HTML, CSS, JavaScript, and Bootstrap, demonstrating strong front-end development and responsive design skills.',
+      image: 'https://api.accredible.com/v1/frontend/credential_website_embed_image/certificate/142704496',
+      link: 'https://www.credential.net/68ac15e5-2b79-41d8-be2e-20433056a854'
     },
     {
-      title: 'JavaScript Advanced Concepts',
-      description: 'Deep dive certification covering advanced JavaScript patterns and concepts.',
-      image: 'https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?auto=format&fit=crop&q=80&w=200',
-      link: 'https://example.com/cert5'
-    },
-    {
-      title: 'DevOps Foundation Certificate',
-      description: 'Foundation level certification in DevOps practices and tools.',
-      image: 'https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?auto=format&fit=crop&q=80&w=200',
-      link: 'https://example.com/cert6'
+      title: 'Publicis Sapient Project Certificate',
+      description: 'Completed a real-world web development project using JavaScript and prototyping frameworks, applying product management and user research skills.',
+      image: 'https://api.accredible.com/v1/frontend/credential_website_embed_image/certificate/142922854',
+      link: 'https://www.credential.net/421ca7be-749a-490a-9a26-8b2018c311ca'
     }
   ];
 

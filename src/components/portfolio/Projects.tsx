@@ -1,4 +1,3 @@
-
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { ExternalLink, Github } from 'lucide-react';
@@ -12,40 +11,58 @@ const Projects = () => {
 
   const projects = [
     {
-      title: 'E-Commerce Platform',
-      description: 'A full-stack e-commerce solution built with React, Node.js, and MongoDB. Features include user authentication, payment integration, and admin dashboard.',
-      tech: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-      image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&q=80&w=800',
-      liveDemo: 'https://example.com',
-      github: 'https://github.com',
+      title: 'Voyago – Travel Booking Web App',
+      description: 'Voyago is a modern, multi-page travel booking web app with responsive design, a complete booking flow, dark/light mode toggle, and polished UI built using React, TypeScript, and Tailwind CSS.',
+      tech: ['TypeScript', 'React', 'Tailwind CSS', 'Vite'],
+      image: '/img/voyago.png',
+      liveDemo: 'https://voyago-romil-patel.vercel.app/',
+      github: 'https://github.com/Techy2419/voyago.git',
       status: 'Completed'
     },
     {
-      title: 'Task Management App',
-      description: 'A collaborative task management application with real-time updates, built using React and Firebase.',
-      tech: ['React', 'Firebase', 'Material-UI'],
-      image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?auto=format&fit=crop&q=80&w=800',
-      liveDemo: 'https://example.com',
-      github: 'https://github.com',
+      title: 'Publicis Sapient: Homes & Villas by Marriott Bonvoy',
+      description: 'Built a functional travel rental website featuring destination search, real-time map pins, user authentication, and dark mode. Delivered a high-fidelity prototype. Certified by Publicis Sapient for real-world product development.',
+      tech: ['HTML5', 'CSS3', 'JavaScript', 'BootStrap', 'Firebase', 'UX Research', 'UX Prototyping'],
+      image: '/img/publicis_sapient.png',
+      liveDemo: 'https://publicis-sapient-project.vercel.app/',
+      github: 'https://github.com/Techy2419/Publicis-Sapient-Project.git',
+      status: 'Completed'
+    },
+    {
+      title: 'BookSync - Appointment Scheduler',
+      description: 'A calendar booking app that syncs with Google Calendar or Apple Calendar via .ics files, allowing users to schedule meetings with smart platform-aware event handling.',
+      tech: ['TypeScript', 'React', 'Tailwind CSS', 'Vite'],
+      image: '/img/booksync.png',
+      liveDemo: 'https://booksync-romil-patel.vercel.app/',
+      github: 'https://github.com/Techy2419/BookSync-appointment-scheduler.git',
+      status: 'Completed'
+    },
+    {
+      title: 'EmailJs Registration Form',
+      description: 'Responsive Bootstrap form that sends confirmation emails using EmailJS and features a modern dark UI with a thank-you screen.',
+      tech: ['HTML', 'CSS', 'JavaScript', 'EmailJs'],
+      image: '/img/email_js.png',
+      liveDemo: 'https://emailjs-registration-form.vercel.app/',
+      github: 'https://github.com/Techy2419/emailjs-registration-form.git',
+      status: 'Completed'
+    },
+    {
+      title: 'Website with Login & Registration Form',
+      description: 'A clean and responsive website featuring a stylish login/signup form with a slide-up effect and blurred background, a 5-link navbar with hover effects, and a hamburger menu for mobile view.',
+      tech: ['HTML', 'CSS', 'JavaScript'],
+      image: '/img/website_login.png',
+      liveDemo: 'https://website-with-login-registration-page.vercel.app/',
+      github: 'https://github.com/Techy2419/Website-with-Login-Registration-Page.git',
+      status: 'Completed'
+    },
+    {
+      title: 'FinTrackr',
+      description: 'Expense tracking web app with simple budget management, transaction logging, and visual reporting.',
+      tech: ['HTML', 'CSS', 'JavaScript', 'Firebase'],
+      image: '/img/fintrackr.png',
+      liveDemo: 'https://fin-trackr-gilt.vercel.app/',
+      github: 'https://github.com/Techy2419/FinTrackr.git',
       status: 'In Progress'
-    },
-    {
-      title: 'Weather Dashboard',
-      description: 'A responsive weather dashboard that displays current weather and forecasts using OpenWeatherMap API.',
-      tech: ['JavaScript', 'API', 'CSS3', 'HTML5'],
-      image: 'https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?auto=format&fit=crop&q=80&w=800',
-      liveDemo: 'https://example.com',
-      github: 'https://github.com',
-      status: 'Completed'
-    },
-    {
-      title: 'Social Media Dashboard',
-      description: 'A comprehensive social media analytics dashboard with real-time data visualization and reporting features.',
-      tech: ['Vue.js', 'D3.js', 'Express', 'PostgreSQL'],
-      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800',
-      liveDemo: 'https://example.com',
-      github: 'https://github.com',
-      status: 'Completed'
     }
   ];
 
