@@ -9,6 +9,7 @@ import Achievements from '@/components/portfolio/Achievements';
 import Contact from '@/components/portfolio/Contact';
 import ParticleBackground from '@/components/portfolio/ParticleBackground';
 import CursorFollower from '@/components/portfolio/CursorFollower';
+import { DataProvider } from '@/contexts/DataContext';
 
 const Index = () => {
   const [isDark, setIsDark] = useState(false);
@@ -30,17 +31,19 @@ const Index = () => {
   }, [isDark]);
 
   return (
-    <div className={`min-h-screen transition-colors duration-500 ${isDark ? 'dark' : ''}`}>
-      <CursorFollower />
-      <ParticleBackground isDark={isDark} />
-      <Navigation isDark={isDark} setIsDark={setIsDark} />
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <Achievements />
-      <Contact />
-    </div>
+    <DataProvider>
+      <div className={`min-h-screen transition-colors duration-500 ${isDark ? 'dark' : ''}`}>
+        <CursorFollower />
+        <ParticleBackground isDark={isDark} />
+        <Navigation isDark={isDark} setIsDark={setIsDark} />
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <Achievements />
+        <Contact />
+      </div>
+    </DataProvider>
   );
 };
 
