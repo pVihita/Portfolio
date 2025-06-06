@@ -14,7 +14,6 @@ import CursorFollower from '@/components/portfolio/CursorFollower';
 
 const Portfolio = () => {
   const [mounted, setMounted] = useState(false);
-  const [isDark, setIsDark] = useState(true);
 
   useEffect(() => {
     setMounted(true);
@@ -28,7 +27,7 @@ const Portfolio = () => {
     <div className="relative min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 dark:from-black dark:via-purple-950 dark:to-black text-white">
       <ParticleBackground />
       <CursorFollower />
-      <Navigation isDark={isDark} setIsDark={setIsDark} />
+      <Navigation />
       <Hero />
       <About />
       <Skills />

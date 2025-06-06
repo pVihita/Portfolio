@@ -13,37 +13,37 @@ const Achievements = () => {
     {
       title: 'AWS Certified Solutions Architect',
       description: 'Professional certification demonstrating expertise in designing distributed systems on AWS.',
-      image: 'https://images.unsplash.com/photo-1589149098258-3e9102cd63d3?auto=format&fit=crop&q=80&w=200',
+      image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=200',
       link: 'https://example.com/cert1'
     },
     {
       title: 'React Developer Certification',
       description: 'Advanced certification in React development and best practices.',
-      image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&q=80&w=200',
+      image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&q=80&w=200',
       link: 'https://example.com/cert2'
     },
     {
       title: 'Google Cloud Professional',
       description: 'Certification in Google Cloud Platform services and architecture.',
-      image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?auto=format&fit=crop&q=80&w=200',
+      image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=200',
       link: 'https://example.com/cert3'
     },
     {
       title: 'Full Stack Developer Bootcamp',
       description: 'Completed intensive 12-week bootcamp covering modern web development technologies.',
-      image: 'https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?auto=format&fit=crop&q=80&w=200',
+      image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=200',
       link: 'https://example.com/cert4'
     },
     {
       title: 'JavaScript Advanced Concepts',
       description: 'Deep dive certification covering advanced JavaScript patterns and concepts.',
-      image: 'https://images.unsplash.com/photo-1627398242454-45a1465c2479?auto=format&fit=crop&q=80&w=200',
+      image: 'https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?auto=format&fit=crop&q=80&w=200',
       link: 'https://example.com/cert5'
     },
     {
       title: 'DevOps Foundation Certificate',
       description: 'Foundation level certification in DevOps practices and tools.',
-      image: 'https://images.unsplash.com/photo-1618477247222-acbdb0e159b3?auto=format&fit=crop&q=80&w=200',
+      image: 'https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?auto=format&fit=crop&q=80&w=200',
       link: 'https://example.com/cert6'
     }
   ];
