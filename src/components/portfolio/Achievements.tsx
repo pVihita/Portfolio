@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Award, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useData } from '@/contexts/DataContext';
 
 const Achievements = () => {
   const [ref, inView] = useInView({
@@ -10,7 +9,44 @@ const Achievements = () => {
     threshold: 0.1,
   });
 
-  const { achievements } = useData();
+  const achievements = [
+    {
+      title: 'AWS Certified Solutions Architect',
+      description: 'Professional certification demonstrating expertise in designing distributed systems on AWS.',
+      image: 'https://images.unsplash.com/photo-1589149098258-3e9102cd63d3?auto=format&fit=crop&q=80&w=200',
+      link: 'https://example.com/cert1'
+    },
+    {
+      title: 'React Developer Certification',
+      description: 'Advanced certification in React development and best practices.',
+      image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&q=80&w=200',
+      link: 'https://example.com/cert2'
+    },
+    {
+      title: 'Google Cloud Professional',
+      description: 'Certification in Google Cloud Platform services and architecture.',
+      image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?auto=format&fit=crop&q=80&w=200',
+      link: 'https://example.com/cert3'
+    },
+    {
+      title: 'Full Stack Developer Bootcamp',
+      description: 'Completed intensive 12-week bootcamp covering modern web development technologies.',
+      image: 'https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?auto=format&fit=crop&q=80&w=200',
+      link: 'https://example.com/cert4'
+    },
+    {
+      title: 'JavaScript Advanced Concepts',
+      description: 'Deep dive certification covering advanced JavaScript patterns and concepts.',
+      image: 'https://images.unsplash.com/photo-1627398242454-45a1465c2479?auto=format&fit=crop&q=80&w=200',
+      link: 'https://example.com/cert5'
+    },
+    {
+      title: 'DevOps Foundation Certificate',
+      description: 'Foundation level certification in DevOps practices and tools.',
+      image: 'https://images.unsplash.com/photo-1618477247222-acbdb0e159b3?auto=format&fit=crop&q=80&w=200',
+      link: 'https://example.com/cert6'
+    }
+  ];
 
   return (
     <section id="achievements" className="py-20 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 dark:from-black dark:via-purple-950 dark:to-black relative overflow-hidden">

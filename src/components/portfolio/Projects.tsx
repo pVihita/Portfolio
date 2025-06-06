@@ -10,7 +10,44 @@ const Projects = () => {
     threshold: 0.1,
   });
 
-  const { projects } = useData();
+  const projects = [
+    {
+      title: 'E-Commerce Platform',
+      description: 'A full-stack e-commerce solution built with React, Node.js, and MongoDB. Features include user authentication, payment integration, and admin dashboard.',
+      tech: ['React', 'Node.js', 'MongoDB', 'Stripe'],
+      image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&q=80&w=800',
+      liveDemo: 'https://example.com',
+      github: 'https://github.com',
+      status: 'Completed'
+    },
+    {
+      title: 'Task Management App',
+      description: 'A collaborative task management application with real-time updates, built using React and Firebase.',
+      tech: ['React', 'Firebase', 'Material-UI'],
+      image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?auto=format&fit=crop&q=80&w=800',
+      liveDemo: 'https://example.com',
+      github: 'https://github.com',
+      status: 'In Progress'
+    },
+    {
+      title: 'Weather Dashboard',
+      description: 'A responsive weather dashboard that displays current weather and forecasts using OpenWeatherMap API.',
+      tech: ['JavaScript', 'API', 'CSS3', 'HTML5'],
+      image: 'https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?auto=format&fit=crop&q=80&w=800',
+      liveDemo: 'https://example.com',
+      github: 'https://github.com',
+      status: 'Completed'
+    },
+    {
+      title: 'Social Media Dashboard',
+      description: 'A comprehensive social media analytics dashboard with real-time data visualization and reporting features.',
+      tech: ['Vue.js', 'D3.js', 'Express', 'PostgreSQL'],
+      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800',
+      liveDemo: 'https://example.com',
+      github: 'https://github.com',
+      status: 'Completed'
+    }
+  ];
 
   return (
     <section id="projects" className="py-20 bg-gradient-to-br from-slate-50 to-purple-50 dark:from-gray-900 dark:to-purple-950">
