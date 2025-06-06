@@ -9,12 +9,13 @@ import { useData } from '@/contexts/DataContext';
 import { toast } from '@/components/ui/use-toast';
 import ProjectManager from './ProjectManager';
 import AchievementManager from './AchievementManager';
+import DataManager from './DataManager';
 
 const AdminDashboard = () => {
   const { logout } = useAdmin();
   const { projects, achievements } = useData();
   const navigate = useNavigate();
-  const [currentView, setCurrentView] = React.useState<'dashboard' | 'projects' | 'achievements'>('dashboard');
+  const [currentView, setCurrentView] = React.useState<'dashboard' | 'projects' | 'achievements' | 'data'>('dashboard');
 
   const handleLogout = () => {
     logout();
@@ -31,6 +32,10 @@ const AdminDashboard = () => {
 
   if (currentView === 'achievements') {
     return <AchievementManager />;
+  }
+
+  if (currentView === 'data') {
+    return <DataManager onBack={() => setCurrentView('dashboard')} />;
   }
 
   const adminCards = [
@@ -55,7 +60,7 @@ const AdminDashboard = () => {
       description: "Backup, restore, and manage your portfolio data",
       icon: Database,
       color: "from-purple-600 to-purple-700",
-      comingSoon: true
+      onClick: () => setCurrentView('data')
     },
     {
       title: "Settings",
@@ -120,8 +125,8 @@ const AdminDashboard = () => {
             <div className="text-sm text-gray-300">System Ready</div>
           </div>
           <div className="bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-yellow-500/20">
-            <div className="text-2xl font-bold text-yellow-400">Phase 3</div>
-            <div className="text-sm text-gray-300">Complete</div>
+            <div className="text-2xl font-bold text-yellow-400">Complete</div>
+            <div className="text-sm text-gray-300">All Phases</div>
           </div>
         </motion.div>
 
@@ -149,7 +154,7 @@ const AdminDashboard = () => {
                   )}
                   {card.comingSoon && (
                     <span className="text-xs bg-yellow-500/20 text-yellow-400 px-2 py-1 rounded-full">
-                      Phase 4
+                      Soon
                     </span>
                   )}
                 </h3>
@@ -163,7 +168,7 @@ const AdminDashboard = () => {
                     card.comingSoon ? 'opacity-50 cursor-not-allowed' : ''
                   }`}
                 >
-                  {card.comingSoon ? 'Phase 4' : 'Open'}
+                  {card.comingSoon ? 'Coming Soon' : 'Open'}
                 </Button>
               </div>
             </motion.div>
@@ -177,16 +182,16 @@ const AdminDashboard = () => {
           transition={{ delay: 0.6 }}
           className="mt-8 bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/20"
         >
-          <h3 className="text-lg font-semibold text-white mb-2">📋 Development Status</h3>
+          <h3 className="text-lg font-semibold text-white mb-2">🎉 Development Complete!</h3>
           <p className="text-gray-300 mb-4">
-            Phase 3 complete! Admin CRUD interfaces are now ready. You can now add, edit, and delete 
-            projects and achievements through user-friendly forms.
+            All phases are now complete! Your admin panel is fully functional with data management, 
+            CRUD operations, and live portfolio integration. Your portfolio now displays real data from the admin panel.
           </p>
           <div className="text-sm text-purple-300">
             <p>✅ Phase 1: Admin Authentication & Dashboard</p>
             <p>✅ Phase 2: Data Management System</p>
             <p>✅ Phase 3: Admin CRUD Interfaces</p>
-            <p>⏳ Phase 4: Final Integration & Polish (Next)</p>
+            <p>✅ Phase 4: Final Integration & Polish</p>
           </div>
         </motion.div>
       </div>
