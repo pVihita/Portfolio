@@ -1,38 +1,33 @@
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { ThemeProvider } from 'next-themes';
 import Navigation from '@/components/portfolio/Navigation';
 import Hero from '@/components/portfolio/Hero';
 import About from '@/components/portfolio/About';
 import Skills from '@/components/portfolio/Skills';
-import Projects from '@/components/portfolio/Projects';
 import Achievements from '@/components/portfolio/Achievements';
+import Projects from '@/components/portfolio/Projects';
 import Contact from '@/components/portfolio/Contact';
 import ParticleBackground from '@/components/portfolio/ParticleBackground';
 import CursorFollower from '@/components/portfolio/CursorFollower';
 
-const Index = () => {
-  const [isDark, setIsDark] = useState(false);
+const Portfolio = () => {
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem('darkMode');
-    if (saved) {
-      setIsDark(JSON.parse(saved));
-    }
+    setMounted(true);
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem('darkMode', JSON.stringify(isDark));
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [isDark]);
+  if (!mounted) {
+    return <div className="min-h-screen bg-black" />;
+  }
 
   return (
-    <div className={`min-h-screen transition-colors duration-500 ${isDark ? 'dark' : ''}`}>
-      <CursorFollower />
+    <div className="relative min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 dark:from-black dark:via-purple-950 dark:to-black text-white">
       <ParticleBackground />
+      <CursorFollower />
+      <ParticleBackground isDark={isDark} />
       <Navigation isDark={isDark} setIsDark={setIsDark} />
       <Hero />
       <About />
@@ -41,6 +36,14 @@ const Index = () => {
       <Achievements />
       <Contact />
     </div>
+  );
+};
+
+const Index = () => {
+  return (
+    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+      <Portfolio />
+    </ThemeProvider>
   );
 };
 
