@@ -1,4 +1,5 @@
 
+
 import { useState, useEffect } from 'react';
 import Navigation from '@/components/portfolio/Navigation';
 import Hero from '@/components/portfolio/Hero';
@@ -34,7 +35,7 @@ const Index = () => {
     <DataProvider>
       <div className={`min-h-screen transition-colors duration-500 ${isDark ? 'dark' : ''}`}>
         <CursorFollower />
-        <ParticleBackground isDark={isDark} />
+        <ParticleBackground />
         <Navigation isDark={isDark} setIsDark={setIsDark} />
         <Hero />
         <About />
@@ -48,3 +49,4 @@ const Index = () => {
 };
 
 export default Index;
+
