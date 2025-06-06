@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { ExternalLink, Github } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useData } from '@/contexts/DataContext';
 
 const Projects = () => {
   const [ref, inView] = useInView({
@@ -11,7 +10,38 @@ const Projects = () => {
     threshold: 0.1,
   });
 
-  const { projects } = useData();
+  const projects = [
+    {
+      id: '1',
+      title: 'E-Commerce Platform',
+      description: 'A full-stack e-commerce solution built with React, Node.js, and MongoDB. Features include user authentication, payment integration, and admin dashboard.',
+      tags: ['React', 'Node.js', 'MongoDB', 'Stripe'],
+      liveUrl: 'https://example.com',
+      githubUrl: 'https://github.com',
+      imageUrl: '/placeholder.svg',
+      status: 'completed'
+    },
+    {
+      id: '2',
+      title: 'Task Management App',
+      description: 'A collaborative task management application with real-time updates, built using React and Firebase.',
+      tags: ['React', 'Firebase', 'Material-UI'],
+      liveUrl: 'https://example.com',
+      githubUrl: 'https://github.com',
+      imageUrl: '/placeholder.svg',
+      status: 'completed'
+    },
+    {
+      id: '3',
+      title: 'Weather Dashboard',
+      description: 'A responsive weather dashboard that displays current weather and forecasts using OpenWeatherMap API.',
+      tags: ['JavaScript', 'API', 'CSS3', 'HTML5'],
+      liveUrl: 'https://example.com',
+      githubUrl: 'https://github.com',
+      imageUrl: '/placeholder.svg',
+      status: 'completed'
+    }
+  ];
 
   return (
     <section id="projects" className="py-20 bg-gradient-to-br from-slate-50 to-purple-50 dark:from-gray-900 dark:to-purple-950">
@@ -113,14 +143,6 @@ const Projects = () => {
             </motion.div>
           ))}
         </div>
-
-        {projects.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-gray-500 dark:text-gray-400 text-lg">
-              No projects to display yet.
-            </p>
-          </div>
-        )}
       </div>
     </section>
   );

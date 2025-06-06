@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Award, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useData } from '@/contexts/DataContext';
 
 const Achievements = () => {
   const [ref, inView] = useInView({
@@ -11,7 +10,26 @@ const Achievements = () => {
     threshold: 0.1,
   });
 
-  const { achievements } = useData();
+  const achievements = [
+    {
+      id: '1',
+      title: 'AWS Certified Solutions Architect',
+      description: 'Professional certification demonstrating expertise in designing distributed systems on AWS.',
+      certificateUrl: 'https://example.com/cert1'
+    },
+    {
+      id: '2',
+      title: 'React Developer Certification',
+      description: 'Advanced certification in React development and best practices.',
+      certificateUrl: 'https://example.com/cert2'
+    },
+    {
+      id: '3',
+      title: 'Google Cloud Professional',
+      description: 'Certification in Google Cloud Platform services and architecture.',
+      certificateUrl: 'https://example.com/cert3'
+    }
+  ];
 
   return (
     <section id="achievements" className="py-20 bg-gradient-to-br from-purple-50 to-slate-50 dark:from-purple-950 dark:to-gray-900">
@@ -67,14 +85,6 @@ const Achievements = () => {
             </motion.div>
           ))}
         </div>
-
-        {achievements.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-gray-500 dark:text-gray-400 text-lg">
-              No achievements to display yet.
-            </p>
-          </div>
-        )}
       </div>
     </section>
   );
