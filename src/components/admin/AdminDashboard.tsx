@@ -2,15 +2,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { Settings, FolderOpen, Award, LogOut, Home, Database } from 'lucide-react';
+import { Settings, FolderOpen, Award, LogOut, Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAdmin } from '@/contexts/AdminContext';
-import { useData } from '@/contexts/DataContext';
 import { toast } from '@/components/ui/use-toast';
 
 const AdminDashboard = () => {
   const { logout } = useAdmin();
-  const { projects, achievements } = useData();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -28,7 +26,6 @@ const AdminDashboard = () => {
       description: "Add, edit, and organize your portfolio projects",
       icon: FolderOpen,
       color: "from-blue-600 to-blue-700",
-      count: projects.length,
       comingSoon: true
     },
     {
@@ -36,21 +33,13 @@ const AdminDashboard = () => {
       description: "Update your certifications and achievements",
       icon: Award,
       color: "from-green-600 to-green-700",
-      count: achievements.length,
-      comingSoon: true
-    },
-    {
-      title: "Data Management",
-      description: "Backup, restore, and manage your portfolio data",
-      icon: Database,
-      color: "from-purple-600 to-purple-700",
       comingSoon: true
     },
     {
       title: "Settings",
       description: "Configure admin panel preferences",
       icon: Settings,
-      color: "from-gray-600 to-gray-700",
+      color: "from-purple-600 to-purple-700",
       comingSoon: true
     }
   ];
@@ -89,31 +78,6 @@ const AdminDashboard = () => {
           </div>
         </motion.div>
 
-        {/* Data Overview */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8"
-        >
-          <div className="bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-blue-500/20">
-            <div className="text-2xl font-bold text-blue-400">{projects.length}</div>
-            <div className="text-sm text-gray-300">Projects</div>
-          </div>
-          <div className="bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-green-500/20">
-            <div className="text-2xl font-bold text-green-400">{achievements.length}</div>
-            <div className="text-sm text-gray-300">Achievements</div>
-          </div>
-          <div className="bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-purple-500/20">
-            <div className="text-2xl font-bold text-purple-400">100%</div>
-            <div className="text-sm text-gray-300">Data Ready</div>
-          </div>
-          <div className="bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-yellow-500/20">
-            <div className="text-2xl font-bold text-yellow-400">Phase 2</div>
-            <div className="text-sm text-gray-300">Complete</div>
-          </div>
-        </motion.div>
-
         {/* Admin Cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {adminCards.map((card, index) => (
@@ -121,7 +85,7 @@ const AdminDashboard = () => {
               key={index}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 + 0.2 }}
+              transition={{ delay: index * 0.1 }}
               className="relative group"
             >
               <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/20 hover:border-purple-400/50 transition-all duration-300 h-full">
@@ -131,14 +95,9 @@ const AdminDashboard = () => {
                 
                 <h3 className="text-xl font-semibold text-white mb-2 flex items-center gap-2">
                   {card.title}
-                  {card.count !== undefined && (
-                    <span className="text-xs bg-blue-500/20 text-blue-400 px-2 py-1 rounded-full">
-                      {card.count}
-                    </span>
-                  )}
                   {card.comingSoon && (
                     <span className="text-xs bg-yellow-500/20 text-yellow-400 px-2 py-1 rounded-full">
-                      Phase 3
+                      Coming Soon
                     </span>
                   )}
                 </h3>
@@ -151,7 +110,7 @@ const AdminDashboard = () => {
                     card.comingSoon ? 'opacity-50 cursor-not-allowed' : ''
                   }`}
                 >
-                  {card.comingSoon ? 'Phase 3' : 'Open'}
+                  {card.comingSoon ? 'Coming Soon' : 'Open'}
                 </Button>
               </div>
             </motion.div>
@@ -162,19 +121,19 @@ const AdminDashboard = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
+          transition={{ delay: 0.4 }}
           className="mt-8 bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/20"
         >
           <h3 className="text-lg font-semibold text-white mb-2">📋 Development Status</h3>
           <p className="text-gray-300 mb-4">
-            Phase 2 complete! Data management system is now ready. Your portfolio data is safely stored 
-            and the admin panel can now manage content dynamically.
+            The admin panel is being built in phases. Currently, only the authentication system is ready.
+            Project and Achievement management features will be added in the next phases.
           </p>
           <div className="text-sm text-purple-300">
             <p>✅ Phase 1: Admin Authentication & Dashboard</p>
-            <p>✅ Phase 2: Data Management System</p>
-            <p>🔄 Phase 3: Admin CRUD Interfaces (Next)</p>
-            <p>⏳ Phase 4: Integration & Polish</p>
+            <p>🔄 Phase 2: Data Management System (Next)</p>
+            <p>⏳ Phase 3: Project Management Interface</p>
+            <p>⏳ Phase 4: Achievement Management Interface</p>
           </div>
         </motion.div>
       </div>
