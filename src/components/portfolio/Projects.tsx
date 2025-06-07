@@ -1,7 +1,9 @@
+
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { ExternalLink, Github } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useData } from '@/contexts/DataContext';
 
 const Projects = () => {
   const [ref, inView] = useInView({
@@ -9,62 +11,7 @@ const Projects = () => {
     threshold: 0.1,
   });
 
-  const projects = [
-    {
-      title: 'Voyago – Travel Booking Web App',
-      description: 'Voyago is a modern, multi-page travel booking web app with responsive design, a complete booking flow, dark/light mode toggle, and polished UI built using React, TypeScript, and Tailwind CSS.',
-      tech: ['TypeScript', 'React', 'Tailwind CSS', 'Vite'],
-      image: '/img/voyago.png',
-      liveDemo: 'https://voyago-romil-patel.vercel.app/',
-      github: 'https://github.com/Techy2419/voyago.git',
-      status: 'Completed'
-    },
-    {
-      title: 'Publicis Sapient: Homes & Villas by Marriott Bonvoy',
-      description: 'Built a functional travel rental website featuring destination search, real-time map pins, user authentication, and dark mode. Delivered a high-fidelity prototype. Certified by Publicis Sapient for real-world product development.',
-      tech: ['HTML5', 'CSS3', 'JavaScript', 'BootStrap', 'Firebase', 'UX Research', 'UX Prototyping'],
-      image: '/img/publicis_sapient.png',
-      liveDemo: 'https://publicis-sapient-project.vercel.app/',
-      github: 'https://github.com/Techy2419/Publicis-Sapient-Project.git',
-      status: 'Completed'
-    },
-    {
-      title: 'BookSync - Appointment Scheduler',
-      description: 'A calendar booking app that syncs with Google Calendar or Apple Calendar via .ics files, allowing users to schedule meetings with smart platform-aware event handling.',
-      tech: ['TypeScript', 'React', 'Tailwind CSS', 'Vite'],
-      image: '/img/booksync.png',
-      liveDemo: 'https://booksync-romil-patel.vercel.app/',
-      github: 'https://github.com/Techy2419/BookSync-appointment-scheduler.git',
-      status: 'Completed'
-    },
-    {
-      title: 'EmailJs Registration Form',
-      description: 'Responsive Bootstrap form that sends confirmation emails using EmailJS and features a modern dark UI with a thank-you screen.',
-      tech: ['HTML', 'CSS', 'JavaScript', 'EmailJs'],
-      image: '/img/email_js.png',
-      liveDemo: 'https://emailjs-registration-form.vercel.app/',
-      github: 'https://github.com/Techy2419/emailjs-registration-form.git',
-      status: 'Completed'
-    },
-    {
-      title: 'Website with Login & Registration Form',
-      description: 'A clean and responsive website featuring a stylish login/signup form with a slide-up effect and blurred background, a 5-link navbar with hover effects, and a hamburger menu for mobile view.',
-      tech: ['HTML', 'CSS', 'JavaScript'],
-      image: '/img/website_login.png',
-      liveDemo: 'https://website-with-login-registration-page.vercel.app/',
-      github: 'https://github.com/Techy2419/Website-with-Login-Registration-Page.git',
-      status: 'Completed'
-    },
-    {
-      title: 'FinTrackr',
-      description: 'Expense tracking web app with simple budget management, transaction logging, and visual reporting.',
-      tech: ['HTML', 'CSS', 'JavaScript', 'Firebase'],
-      image: '/img/fintrackr.png',
-      liveDemo: 'https://fin-trackr-gilt.vercel.app/',
-      github: 'https://github.com/Techy2419/FinTrackr.git',
-      status: 'In Progress'
-    }
-  ];
+  const { projects } = useData();
 
   return (
     <section id="projects" className="py-20 bg-gradient-to-br from-slate-50 to-purple-50 dark:from-gray-900 dark:to-purple-950">
@@ -85,7 +32,7 @@ const Projects = () => {
         <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {projects.map((project, index) => (
             <motion.div
-              key={index}
+              key={project.id}
               initial={{ opacity: 0, y: 50 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1 }}
