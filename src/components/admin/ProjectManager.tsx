@@ -164,7 +164,7 @@ const ProjectManager = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold text-white">Project Management</h2>
-        <Button onClick={() => setShowAddForm(true)} disabled={showAddForm || editingProject}>
+        <Button onClick={() => setShowAddForm(true)} disabled={showAddForm || !!editingProject}>
           <Plus className="h-4 w-4 mr-2" />
           Add Project
         </Button>
