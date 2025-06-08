@@ -94,64 +94,75 @@ const ProjectManager = () => {
   };
 
   const ProjectForm = ({ isEditing = false }) => (
-    <Card className="mb-6">
+    <Card className="mb-6 bg-white/10 backdrop-blur-lg border-purple-500/20">
       <CardHeader>
-        <CardTitle>{isEditing ? 'Edit Project' : 'Add New Project'}</CardTitle>
+        <CardTitle className="text-white">{isEditing ? 'Edit Project' : 'Add New Project'}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <Input
           placeholder="Project Title"
           value={formData.title || ''}
           onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
+          className="bg-white/5 border-purple-500/30 text-white placeholder:text-gray-400"
         />
         
         <textarea
           placeholder="Project Description"
           value={formData.description || ''}
           onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
-          className="w-full p-2 border rounded-md min-h-[100px] resize-none"
+          className="w-full p-3 bg-white/5 border border-purple-500/30 rounded-md min-h-[100px] resize-none text-white placeholder:text-gray-400 focus:border-purple-500/50 focus:outline-none"
         />
         
         <Input
           placeholder="Technologies (comma separated)"
           value={formData.tech?.join(', ') || ''}
           onChange={(e) => handleTechChange(e.target.value)}
+          className="bg-white/5 border-purple-500/30 text-white placeholder:text-gray-400"
         />
         
         <Input
           placeholder="Image URL"
           value={formData.image || ''}
           onChange={(e) => setFormData(prev => ({ ...prev, image: e.target.value }))}
+          className="bg-white/5 border-purple-500/30 text-white placeholder:text-gray-400"
         />
         
         <Input
           placeholder="Live Demo URL"
           value={formData.liveDemo || ''}
           onChange={(e) => setFormData(prev => ({ ...prev, liveDemo: e.target.value }))}
+          className="bg-white/5 border-purple-500/30 text-white placeholder:text-gray-400"
         />
         
         <Input
           placeholder="GitHub URL"
           value={formData.github || ''}
           onChange={(e) => setFormData(prev => ({ ...prev, github: e.target.value }))}
+          className="bg-white/5 border-purple-500/30 text-white placeholder:text-gray-400"
         />
         
         <select
           value={formData.status || 'In Progress'}
           onChange={(e) => setFormData(prev => ({ ...prev, status: e.target.value }))}
-          className="w-full p-2 border rounded-md"
+          className="w-full p-3 bg-white/5 border border-purple-500/30 rounded-md text-white focus:border-purple-500/50 focus:outline-none"
         >
-          <option value="In Progress">In Progress</option>
-          <option value="Completed">Completed</option>
-          <option value="On Hold">On Hold</option>
+          <option value="In Progress" className="bg-slate-800 text-white">In Progress</option>
+          <option value="Completed" className="bg-slate-800 text-white">Completed</option>
+          <option value="On Hold" className="bg-slate-800 text-white">On Hold</option>
         </select>
         
-        <div className="flex gap-2">
-          <Button onClick={handleSave} className="flex-1">
+        <div className="flex gap-3">
+          <Button 
+            onClick={handleSave} 
+            className="flex-1 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white border-0"
+          >
             <Save className="h-4 w-4 mr-2" />
             Save
           </Button>
-          <Button onClick={handleCancel} variant="outline" className="flex-1">
+          <Button 
+            onClick={handleCancel} 
+            className="flex-1 bg-white/10 hover:bg-white/20 text-white border border-purple-500/30"
+          >
             <X className="h-4 w-4 mr-2" />
             Cancel
           </Button>
@@ -164,7 +175,11 @@ const ProjectManager = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold text-white">Project Management</h2>
-        <Button onClick={() => setShowAddForm(true)} disabled={showAddForm || !!editingProject}>
+        <Button 
+          onClick={() => setShowAddForm(true)} 
+          disabled={showAddForm || !!editingProject}
+          className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white border-0 disabled:opacity-50"
+        >
           <Plus className="h-4 w-4 mr-2" />
           Add Project
         </Button>
@@ -180,7 +195,7 @@ const ProjectManager = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
           >
-            <Card className="bg-white/10 backdrop-blur-lg border-purple-500/20">
+            <Card className="bg-white/10 backdrop-blur-lg border-purple-500/20 hover:border-purple-400/40 transition-all duration-300">
               <CardContent className="p-6">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
@@ -210,7 +225,7 @@ const ProjectManager = () => {
                           href={project.liveDemo}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-blue-400 hover:text-blue-300 text-sm flex items-center gap-1"
+                          className="text-blue-400 hover:text-blue-300 text-sm flex items-center gap-1 transition-colors"
                         >
                           <ExternalLink className="h-3 w-3" />
                           Demo
@@ -221,7 +236,7 @@ const ProjectManager = () => {
                           href={project.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-gray-400 hover:text-gray-300 text-sm flex items-center gap-1"
+                          className="text-gray-400 hover:text-gray-300 text-sm flex items-center gap-1 transition-colors"
                         >
                           <Github className="h-3 w-3" />
                           Code
@@ -233,19 +248,17 @@ const ProjectManager = () => {
                   <div className="flex gap-2 ml-4">
                     <Button
                       size="sm"
-                      variant="outline"
                       onClick={() => handleEdit(project)}
                       disabled={editingProject === project.id || showAddForm}
-                      className="border-purple-500/30 text-purple-300 hover:bg-purple-500/20"
+                      className="bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 border border-blue-500/30 disabled:opacity-50"
                     >
                       <Edit className="h-3 w-3" />
                     </Button>
                     <Button
                       size="sm"
-                      variant="outline"
                       onClick={() => handleDelete(project.id)}
                       disabled={editingProject === project.id || showAddForm}
-                      className="border-red-500/30 text-red-300 hover:bg-red-500/20"
+                      className="bg-red-600/20 hover:bg-red-600/30 text-red-300 border border-red-500/30 disabled:opacity-50"
                     >
                       <Trash2 className="h-3 w-3" />
                     </Button>
