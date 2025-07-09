@@ -7,6 +7,7 @@ const Skills = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
+    rootMargin: '-50px 0px -50px 0px'
   });
 
   useEffect(() => {
@@ -32,7 +33,7 @@ const Skills = () => {
   ];
 
   return (
-    <section id="skills" className="py-20 bg-gradient-to-br from-slate-50 to-purple-50 dark:from-gray-900 dark:to-purple-950 relative overflow-hidden">
+    <section id="skills" className="py-20 bg-gradient-to-br from-slate-50 to-purple-50 dark:from-gray-900 dark:to-purple-950 relative overflow-hidden scroll-smooth">
       {/* Enhanced 3D Background Animation */}
       <div className="absolute inset-0 opacity-20">
         <svg width="100%" height="100%" viewBox="0 0 1400 900" className="absolute">

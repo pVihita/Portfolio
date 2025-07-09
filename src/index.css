@@ -98,4 +98,18 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Smooth scrolling for all elements */
+  * {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom smooth scrolling */
+  .smooth-scroll {
+    scroll-behavior: smooth;
+  }
 }

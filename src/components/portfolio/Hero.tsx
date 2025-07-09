@@ -5,20 +5,27 @@ import { ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Hero = () => {
-  const [text, setText] = useState('');
-  const fullText = "Computer Science Student & Aspiring Developer";
+  const roles = [
+    "Computer Science Student",
+    "Aspiring Developer", 
+    "React Enthusiast",
+    "Problem Solver"
+  ];
+  
+  const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
   
   useEffect(() => {
-    let index = 0;
-    const timer = setInterval(() => {
-      setText(fullText.slice(0, index));
-      index++;
-      if (index > fullText.length) {
-        clearInterval(timer);
-      }
-    }, 80);
+    const interval = setInterval(() => {
+      setIsVisible(false);
+      
+      setTimeout(() => {
+        setCurrentRoleIndex((prev) => (prev + 1) % roles.length);
+        setIsVisible(true);
+      }, 500);
+    }, 3000);
     
-    return () => clearInterval(timer);
+    return () => clearInterval(interval);
   }, []);
 
   const scrollToAbout = () => {
@@ -356,20 +363,27 @@ const Hero = () => {
             className="text-xl md:text-2xl lg:text-3xl text-gray-300 h-16 flex items-center justify-center font-medium"
           >
             <motion.span
-              key={text}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-              className="font-mono"
+              key={currentRoleIndex}
+              initial={{ opacity: 0, y: 30, rotateX: -90 }}
+              animate={{ 
+                opacity: isVisible ? 1 : 0, 
+                y: isVisible ? 0 : -30, 
+                rotateX: isVisible ? 0 : 90,
+                scale: isVisible ? 1 : 0.8
+              }}
+              transition={{ 
+                duration: 0.6,
+                ease: [0.25, 0.46, 0.45, 0.94],
+                opacity: { duration: 0.4 },
+                scale: { duration: 0.4 }
+              }}
+              className="font-mono bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent"
+              style={{
+                transformStyle: "preserve-3d",
+                backfaceVisibility: "hidden"
+              }}
             >
-              {text}
-            </motion.span>
-            <motion.span
-              animate={{ opacity: [1, 0] }}
-              transition={{ duration: 0.8, repeat: Infinity }}
-              className="ml-1 text-purple-400 font-mono"
-            >
-              |
+              {roles[currentRoleIndex]}
             </motion.span>
           </motion.div>
 
