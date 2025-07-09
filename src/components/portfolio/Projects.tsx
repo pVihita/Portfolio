@@ -16,16 +16,34 @@ const Projects = () => {
     gsap.registerPlugin(ScrollTrigger);
     
     const ctx = gsap.context(() => {
-      // Title animation
-      animationUtils.textReveal(titleRef.current!, {
-        scrollTrigger: {
-          trigger: titleRef.current,
-          start: "top 80%",
-          toggleActions: "play none none reverse"
-        }
-      });
+      // Title animation - ensure visibility
+      gsap.set(titleRef.current, { opacity: 1 });
+      
+      const titleChars = titleRef.current?.textContent?.split('') || [];
+      if (titleRef.current) {
+        titleRef.current.innerHTML = titleChars.map(char => 
+          char === ' ' ? ' ' : `<span class="char">${char}</span>`
+        ).join('');
+      }
 
-      // Project cards animation
+      const chars = titleRef.current?.querySelectorAll('.char');
+      if (chars) {
+        gsap.from(chars, {
+          opacity: 0,
+          y: 50,
+          rotationX: -45,
+          stagger: 0.03,
+          duration: 0.8,
+          ease: "back.out(1.7)",
+          scrollTrigger: {
+            trigger: titleRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+          }
+        });
+      }
+
+      // Project cards animation - removed excessive bouncing
       const projectCards = gridRef.current?.querySelectorAll('.project-card');
       
       projectCards?.forEach((card, index) => {
@@ -38,13 +56,11 @@ const Projects = () => {
         // Initial setup
         gsap.set(card, {
           opacity: 0,
-          y: 100,
-          rotationX: 45,
-          transformOrigin: "center bottom",
-          transformStyle: "preserve-3d"
+          y: 80,
+          scale: 0.9
         });
 
-        // Entrance animation
+        // Entrance animation - smooth and professional
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: card,
@@ -56,14 +72,14 @@ const Projects = () => {
         tl.to(card, {
           opacity: 1,
           y: 0,
-          rotationX: 0,
-          duration: 1,
+          scale: 1,
+          duration: 0.8,
           ease: "power3.out",
-          delay: index * 0.2
+          delay: index * 0.15
         })
         .from(image, {
-          scale: 1.3,
-          duration: 1.2,
+          scale: 1.2,
+          duration: 1,
           ease: "power2.out"
         }, 0)
         .from(techTags, {
@@ -72,43 +88,41 @@ const Projects = () => {
           stagger: 0.05,
           duration: 0.4,
           ease: "back.out(1.7)"
-        }, "-=0.6")
+        }, "-=0.4")
         .from(buttons, {
           opacity: 0,
           y: 20,
           stagger: 0.1,
           duration: 0.4,
           ease: "power2.out"
-        }, "-=0.3");
+        }, "-=0.2");
 
-        // Hover effects
+        // Hover effects - subtle and elegant
         cardElement.addEventListener('mouseenter', () => {
           gsap.to(card, {
-            scale: 1.05,
-            rotationY: 5,
-            z: 50,
+            y: -10,
+            scale: 1.02,
             duration: 0.4,
             ease: "power2.out"
           });
 
           gsap.to(image, {
-            scale: 1.1,
+            scale: 1.05,
             duration: 0.6,
             ease: "power2.out"
           });
 
-          // Magnetic effect for buttons
-          const cardButtons = card.querySelectorAll('.project-button');
-          cardButtons.forEach(button => {
-            animationUtils.magneticButton(button as HTMLElement);
+          // Add subtle glow
+          gsap.to(card, {
+            boxShadow: "0 20px 40px rgba(139, 92, 246, 0.2)",
+            duration: 0.4
           });
         });
 
         cardElement.addEventListener('mouseleave', () => {
           gsap.to(card, {
+            y: 0,
             scale: 1,
-            rotationY: 0,
-            z: 0,
             duration: 0.4,
             ease: "power2.out"
           });
@@ -118,16 +132,21 @@ const Projects = () => {
             duration: 0.6,
             ease: "power2.out"
           });
+
+          gsap.to(card, {
+            boxShadow: "0 0px 0px rgba(139, 92, 246, 0)",
+            duration: 0.4
+          });
         });
 
-        // Continuous subtle animation
+        // Very subtle breathing animation instead of floating
         gsap.to(card, {
-          y: -5,
-          duration: 3 + index * 0.5,
+          y: -2,
+          duration: 4 + index * 0.5,
           ease: "sine.inOut",
           repeat: -1,
           yoyo: true,
-          delay: index * 0.3
+          delay: index * 0.5
         });
       });
 
@@ -143,35 +162,49 @@ const Projects = () => {
     const container = projectsRef.current;
     if (!container) return;
 
-    // Create animated background grid
-    const gridOverlay = document.createElement('div');
-    gridOverlay.className = 'project-grid-overlay';
-    gridOverlay.style.cssText = `
+    // Create SVG background
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('width', '100%');
+    svg.setAttribute('height', '100%');
+    svg.setAttribute('viewBox', '0 0 1200 800');
+    svg.style.cssText = `
       position: absolute;
       top: 0;
       left: 0;
-      right: 0;
-      bottom: 0;
-      opacity: 0.1;
+      opacity: 0.05;
       pointer-events: none;
-      background-image: 
-        linear-gradient(rgba(139, 92, 246, 0.3) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(139, 92, 246, 0.3) 1px, transparent 1px);
-      background-size: 50px 50px;
-      animation: gridMove 20s linear infinite;
     `;
 
-    container.appendChild(gridOverlay);
-
-    // Add CSS animation
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes gridMove {
-        0% { transform: translate(0, 0); }
-        100% { transform: translate(50px, 50px); }
-      }
+    const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+    const gradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
+    gradient.setAttribute('id', 'projectsGridGradient');
+    gradient.innerHTML = `
+      <stop offset="0%" stop-color="#8B5CF6" />
+      <stop offset="100%" stop-color="#EC4899" />
     `;
-    document.head.appendChild(style);
+    defs.appendChild(gradient);
+    svg.appendChild(defs);
+
+    // Create code-like pattern
+    for (let i = 0; i < 15; i++) {
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', (i * 80).toString());
+      rect.setAttribute('y', (Math.random() * 600).toString());
+      rect.setAttribute('width', '60');
+      rect.setAttribute('height', '4');
+      rect.setAttribute('fill', 'url(#projectsGridGradient)');
+      svg.appendChild(rect);
+
+      gsap.to(rect, {
+        opacity: [0.3, 0.8, 0.3],
+        duration: 3 + Math.random() * 2,
+        ease: "sine.inOut",
+        repeat: -1,
+        delay: i * 0.2
+      });
+    }
+
+    container.appendChild(svg);
   };
 
   return (
