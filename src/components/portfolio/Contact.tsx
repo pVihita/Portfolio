@@ -17,6 +17,7 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    subject: '',
     message: ''
   });
 
@@ -29,20 +30,35 @@ const Contact = () => {
     setSubmitStatus('idle');
 
     try {
+      // Send main contact email
       await emailjs.send(
         'service_b8wcxgn',
         'template_3y8l8dn',
         {
           from_name: formData.name,
           from_email: formData.email,
+          subject: formData.subject,
           message: formData.message,
           to_name: 'Romil Patel'
         },
         'b-uNk6s2WC-8hJ1WN'
       );
+
+      // Send auto-reply email to client
+      await emailjs.send(
+        'service_b8wcxgn',
+        'template_auto_reply', // Create this template in EmailJS dashboard
+        {
+          to_name: formData.name,
+          to_email: formData.email,
+          subject: formData.subject,
+          from_name: 'Romil Patel'
+        },
+        'b-uNk6s2WC-8hJ1WN'
+      );
       
       setSubmitStatus('success');
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
       console.error('EmailJS error:', error);
       setSubmitStatus('error');
@@ -153,6 +169,21 @@ const Contact = () => {
                     name="email"
                     placeholder="Your Email"
                     value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    className="bg-white/10 border-purple-500/30 text-white placeholder:text-gray-400 focus:border-purple-400"
+                  />
+                </motion.div>
+                
+                <motion.div
+                  whileFocus={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Input
+                    type="text"
+                    name="subject"
+                    placeholder="Subject"
+                    value={formData.subject}
                     onChange={handleInputChange}
                     required
                     className="bg-white/10 border-purple-500/30 text-white placeholder:text-gray-400 focus:border-purple-400"
